@@ -57,8 +57,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ["Georgia", "Cambria", "Times New Roman", "serif"],
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Heebo", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
