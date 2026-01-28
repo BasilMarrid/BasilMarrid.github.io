@@ -1,15 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const services = [
-  "הכנת דוחות כספיים",
-  "תכנון וייעוץ מס",
-  "הנהלת חשבונות",
-  "ייעוץ עסקי",
-  "ביקורת חשבונות",
-  "ליווי עסקים",
-];
-
 const Index = () => {
   const currentYear = new Date().getFullYear();
 
@@ -59,21 +49,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Service */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-6">
-          <h3 className="text-3xl font-bold text-foreground text-center mb-10">
-            שירותים
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {services.map((service, index) => (
-              <div 
-                key={index}
-                className="bg-card border border-border rounded-lg p-6 text-center hover:border-accent/50 transition-colors"
-              >
-                <p className="font-medium text-foreground">{service}</p>
-              </div>
-            ))}
+          <div className="max-w-md mx-auto text-center">
+            <h3 className="text-3xl font-bold text-foreground mb-6">השירות שלנו</h3>
+            <div className="bg-card border border-border rounded-lg p-8 hover:border-accent/50 transition-colors">
+              <p className="text-xl font-medium text-foreground">החזר ויעוץ מס</p>
+            </div>
           </div>
         </div>
       </section>
