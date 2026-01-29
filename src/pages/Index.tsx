@@ -19,13 +19,22 @@ const Index = () => {
               </div>
             </div>
             
-            <a 
-              href="tel:+972-XX-XXX-XXXX" 
-              className="hidden md:flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors"
-            >
-              <Phone className="w-4 h-4" />
-              <span>+972-54-945-2800</span>
-            </a>
+            <div className="flex items-center gap-4">
+              <a
+                href="/about"
+                className="hidden md:inline-block text-primary-foreground/80 hover:text-accent transition-colors"
+              >
+                אודות
+              </a>
+
+              <a 
+                href="tel:+972-XX-XXX-XXXX" 
+                className="hidden md:flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors"
+              >
+                <Phone className="w-4 h-4" />
+                <span>+972-54-945-2800</span>
+              </a>
+            </div>
           </div>
         </div>
       </header>

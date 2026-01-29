@@ -5,10 +5,9 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // For a GitHub user/organization site (username.github.io) the base must be '/'.
-  // If you're deploying a project site (repo other than username.github.io),
-  // change this to `'/your-repo-name/'`.
-  base: "/",
+  // Use a relative base so assets work when deploying to `docs/` or subfolders.
+  // If you prefer absolute URLs for a user site, change back to '/'.
+  base: "./",
   server: {
     host: "::",
     port: 8080,
