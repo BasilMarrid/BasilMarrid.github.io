@@ -23,7 +23,7 @@ const Index = () => {
             <div className="flex items-center gap-4">
               <NavLink
                 to="/about"
-                className="hidden md:inline-block text-primary-foreground/80 hover:text-accent transition-colors"
+                className="inline-block text-primary-foreground/80 hover:text-accent transition-colors"
               >
                 אודות
               </NavLink>
