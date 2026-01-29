@@ -24,7 +24,7 @@ const Index = () => {
               className="hidden md:flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span>+972-XX-XXX-XXXX</span>
+              <span>+972-54-945-2800</span>
             </a>
           </div>
         </div>
@@ -34,10 +34,10 @@ const Index = () => {
       <section className="bg-primary py-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-6">
-            שירותי ראיית חשבון מקצועיים
+            שירות החזר מס מקצועי ואמין
           </h2>
           <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            ניסיון של למעלה מ-20 שנה בליווי עסקים ולקוחות פרטיים
+            ניסיון של למעלה מ 5 שנים בליווי עסקים ולקוחות פרטיים
           </p>
           <Button 
             size="lg"
@@ -55,7 +55,7 @@ const Index = () => {
           <div className="max-w-md mx-auto text-center">
             <h3 className="text-3xl font-bold text-foreground mb-6">השירות שלנו</h3>
             <div className="bg-card border border-border rounded-lg p-8 hover:border-accent/50 transition-colors">
-              <p className="text-xl font-medium text-foreground">החזר ויעוץ מס</p>
+              <p className="text-xl font-medium text-foreground">החזרי מס</p>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@ const Index = () => {
               לעסקים קטנים ובינוניים ולקוחות פרטיים.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              המשרד מתמחה בדיני מיסים, דיווחים כספיים וליווי עסקי שוטף.
+            המשרד מתמחה בהחזרי מס
             </p>
           </div>
         </div>
