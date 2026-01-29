@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { NavLink } from "@/components/NavLink";
 
 const AboutHe = () => {
   return (
@@ -24,7 +25,7 @@ const AboutHe = () => {
 
           <div className="flex gap-4">
             <Button asChild>
-              <a href="/" className="font-medium">חזרה לדף הבית</a>
+              <NavLink to="/" className="font-medium">חזרה לדף הבית</NavLink>
             </Button>
             <Button variant="outline" asChild>
               <a href="#contact" className="font-medium">יצירת קשר</a>

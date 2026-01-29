@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NavLink } from "@/components/NavLink";
 const Index = () => {
   const currentYear = new Date().getFullYear();
 
@@ -20,12 +21,12 @@ const Index = () => {
             </div>
             
             <div className="flex items-center gap-4">
-              <a
-                href="/about"
+              <NavLink
+                to="/about"
                 className="hidden md:inline-block text-primary-foreground/80 hover:text-accent transition-colors"
               >
                 אודות
-              </a>
+              </NavLink>
 
               <a 
                 href="tel:+972-XX-XXX-XXXX" 
