@@ -7,7 +7,7 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   // Use a relative base so assets work when deploying to `docs/` or subfolders.
   // If you prefer absolute URLs for a user site, change back to '/'.
-  base: "/",
+  base: "./",
   server: {
     host: "::",
     port: 8080,
