@@ -27,9 +27,6 @@ const AboutHe = () => {
             <Button asChild>
               <NavLink to="/" className="font-medium">חזרה לדף הבית</NavLink>
             </Button>
-            <Button variant="outline" asChild>
-              <a href="#contact" className="font-medium">יצירת קשר</a>
-            </Button>
           </div>
         </div>
       </main>

@@ -33,7 +33,7 @@ const Index = () => {
                 className="hidden md:flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span>+972-54-945-2800</span>
+                <span dir="ltr" className="inline-block">+972-54-945-2800</span>
               </a>
             </div>
           </div>
@@ -103,7 +103,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">טלפון</p>
-                <p className="font-medium text-foreground">+972-54-945-2800</p>
+                <p className="font-medium text-foreground" dir="ltr">+972-54-945-2800</p>
               </div>
             </a>
 
