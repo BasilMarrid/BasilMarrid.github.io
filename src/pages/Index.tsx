@@ -96,7 +96,7 @@ const Index = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-6">
           <h3 className="text-3xl font-bold text-foreground text-center mb-10">
-            השאר פרטים
+           או השאר פרטים ונחזור אליך בהקדם  
           </h3>
           <div className="max-w-md mx-auto">
             <form
