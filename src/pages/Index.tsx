@@ -10,7 +10,7 @@ const Index = () => {
       <header className="bg-primary py-6">
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 order-2">
               <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
                 <span className="text-accent-foreground font-bold text-xl">EY</span>
               </div>
@@ -20,7 +20,7 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 order-1">
               <NavLink
                 to="/about"
                 className="inline-block text-primary-foreground/80 hover:text-accent transition-colors"
