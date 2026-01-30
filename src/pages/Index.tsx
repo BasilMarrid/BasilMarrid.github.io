@@ -18,7 +18,7 @@ const Index = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-primary-foreground">EY CPA</h1>
-                <p className="text-sm text-primary-foreground/70">רואה חשבון מוסמך</p>
+                <p className="text-sm text-primary-foreground/70">החזר מס</p>
               </div>
             </div>
             
@@ -43,13 +43,6 @@ const Index = () => {
           <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
             ניסיון של למעלה מ 5 שנים בליווי עסקים ולקוחות פרטיים
           </p>
-          <Button 
-            size="lg"
-            className="bg-accent hover:bg-gold-light text-accent-foreground font-semibold px-8"
-            asChild
-          >
-            <a href="#contact">צור קשר</a>
-          </Button>
         </div>
       </section>
 
