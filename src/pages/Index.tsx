@@ -93,16 +93,16 @@ const Index = () => {
       </section>
 
       {/* Contact Form */}
-      <section className="py-16 bg-secondary">
+      <section className="py-12 bg-secondary">
         <div className="container mx-auto px-6">
-          <h3 className="text-3xl font-bold text-foreground text-center mb-10">
+          <h3 className="text-2xl font-bold text-foreground text-center mb-8">
            או השאר פרטים ונחזור אליך בהקדם
           </h3>
-          <div className="max-w-md mx-auto">
+          <div className="max-w-sm mx-auto">
             <form
               action="https://formspree.io/f/xzdgopvv"
               method="POST"
-              className="space-y-6"
+              className="space-y-4"
               dir="rtl"
             >
               <div>
