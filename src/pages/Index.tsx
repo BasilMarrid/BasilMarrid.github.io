@@ -1,6 +1,8 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 const Index = () => {
   const currentYear = new Date().getFullYear();
 
@@ -93,6 +95,57 @@ const Index = () => {
                 <p className="font-medium text-foreground">ישראל</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form */}
+      <section className="py-16 bg-secondary">
+        <div className="container mx-auto px-6">
+          <h3 className="text-3xl font-bold text-foreground text-center mb-10">
+            השאר פרטים
+          </h3>
+          <div className="max-w-md mx-auto">
+            <form
+              action="https://formspree.io/f/xzdgopvv"
+              method="POST"
+              className="space-y-6"
+              dir="rtl"
+            >
+              <div>
+                <Label htmlFor="name">שם מלא</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="הכנס את שמך המלא"
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="email">דוא"ל</Label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder='הכנס את כתובת הדוא"ל שלך'
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="phone">טלפון</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="הכנס את מספר הטלפון שלך"
+                  required
+                />
+              </div>
+              <Button type="submit" className="w-full">
+                שלח
+              </Button>
+            </form>
           </div>
         </div>
       </section>
