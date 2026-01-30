@@ -51,34 +51,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Service */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="max-w-md mx-auto text-center">
-            <h3 className="text-3xl font-bold text-foreground mb-6">השירות שלנו</h3>
-            <div className="bg-card border border-border rounded-lg p-8 hover:border-accent/50 transition-colors">
-              <p className="text-xl font-medium text-foreground">החזרי מס</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About */}
-      <section className="py-16 bg-secondary">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h3 className="text-3xl font-bold text-foreground mb-6">אודות</h3>
-            <p className="text-muted-foreground leading-relaxed mb-4">
-              רואה חשבון מוסמך עם ניסיון רב בתחום. מספק שירות אישי ומקצועי 
-              לעסקים קטנים ובינוניים ולקוחות פרטיים.
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-            המשרד מתמחה בהחזרי מס
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Contact */}
       <section id="contact" className="py-16 bg-background">
         <div className="container mx-auto px-6">
