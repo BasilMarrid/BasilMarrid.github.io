@@ -25,7 +25,7 @@ const Index = () => {
             <div className="flex items-center gap-4">
               <NavLink
                 to="/about"
-                className="inline-block text-primary-foreground/80 hover:text-accent transition-colors"
+                className="inline-block px-3 py-2 text-lg font-medium text-primary-foreground/80 hover:text-accent transition-colors"
               >
                 אודות
               </NavLink>
@@ -54,18 +54,18 @@ const Index = () => {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-16 bg-background">
+      <section id="contact" className="py-12 bg-background">
         <div className="container mx-auto px-6">
-          <h3 className="text-3xl font-bold text-foreground text-center mb-10">
+          <h3 className="text-2xl font-bold text-foreground text-center mb-8">
             יצירת קשר
           </h3>
-          <div className="max-w-md mx-auto space-y-6">
+          <div className="max-w-sm mx-auto space-y-4">
             <a 
               href="tel:+972-XX-XXX-XXXX"
-              className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg hover:border-accent/50 transition-colors"
+              className="flex items-center gap-3 p-3 bg-card border border-border rounded-lg hover:border-accent/50 transition-colors"
             >
-              <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-                <Phone className="w-5 h-5 text-accent" />
+              <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <Phone className="w-4 h-4 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">טלפון</p>
@@ -75,10 +75,10 @@ const Index = () => {
 
             <a 
               href="mailto:contact@eycpa.org.il"
-              className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg hover:border-accent/50 transition-colors"
+              className="flex items-center gap-3 p-3 bg-card border border-border rounded-lg hover:border-accent/50 transition-colors"
             >
-              <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-                <Mail className="w-5 h-5 text-accent" />
+              <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <Mail className="w-4 h-4 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">דוא"ל</p>
@@ -86,9 +86,9 @@ const Index = () => {
               </div>
             </a>
 
-            <div className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg">
-              <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-accent" />
+            <div className="flex items-center gap-3 p-3 bg-card border border-border rounded-lg">
+              <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <MapPin className="w-4 h-4 text-accent" />
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">מיקום</p>
@@ -139,6 +139,7 @@ const Index = () => {
                   name="phone"
                   type="tel"
                   placeholder="הכנס את מספר הטלפון שלך"
+                  dir="rtl"
                   required
                 />
               </div>
