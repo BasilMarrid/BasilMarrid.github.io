@@ -9,7 +9,7 @@ const AboutHe = () => {
         <div className="container mx-auto px-6">
           <NavLink
             to="/"
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/80 transition-colors"
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-2 bg-primary text-white rounded-full hover:bg-primary/80 transition-colors"
           >
             <ArrowRight className="w-5 h-5" />
           </NavLink>
