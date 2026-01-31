@@ -54,7 +54,7 @@ const Index = () => {
                 to="/about"
                 className="inline-block px-3 py-2 text-lg font-medium text-primary-foreground/80 hover:text-accent transition-colors"
               >
-                אודות
+                מי אנחנו?
               </NavLink>
             </div>
           </div>
