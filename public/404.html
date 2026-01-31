@@ -17,7 +17,7 @@
 
       // If you're using a custom domain, set this to the domain name
       var l = window.location;
-      var segmentCount = 1; // Adjust this to the number of path segments in your repo name
+      var segmentCount = 0; // Adjust this to the number of path segments in your repo name
 
       var redirect = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
       redirect += l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?/';
