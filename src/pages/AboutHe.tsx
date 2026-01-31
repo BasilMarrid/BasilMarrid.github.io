@@ -5,13 +5,13 @@ import { ArrowRight } from "lucide-react";
 const AboutHe = () => {
   return (
     <div className="min-h-screen bg-background relative" dir="rtl">
-      <header className="bg-primary py-8 relative">
+      <header className="bg-primary py-10 relative">
         <div className="container mx-auto px-6">
           <NavLink
             to="/"
             className="absolute top-1/2 right-4 transform -translate-y-1/2 p-2 bg-primary text-white rounded-full hover:bg-primary/80 transition-colors"
           >
-            <ArrowRight className="w-6 h-6" />
+            <ArrowRight className="w-7 h-7" />
           </NavLink>
         </div>
       </header>
