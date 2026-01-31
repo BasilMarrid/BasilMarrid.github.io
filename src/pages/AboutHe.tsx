@@ -11,6 +11,11 @@ const AboutHe = () => {
       >
         <ArrowRight className="w-5 h-5" />
       </NavLink>
+      <header className="bg-primary py-6">
+        <div className="container mx-auto px-6">
+        </div>
+      </header>
+
       <main className="py-12">
         <div className="container mx-auto px-6 max-w-3xl">
           <h2 className="text-3xl font-bold mb-4">כאן המקום לתיאור קצר של החברה/המשרד</h2>
