@@ -40,9 +40,7 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-xl">EY</span>
-              </div>
+              <img src="./favicon.ico" alt="Logo" className="w-8 h-8" />
               <div>
                 <h1 className="text-2xl font-bold text-primary-foreground">EY CPA</h1>
                 <p className="text-sm text-primary-foreground/70">החזר מס</p>
