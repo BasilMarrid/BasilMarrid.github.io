@@ -3,8 +3,35 @@ import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 const Index = () => {
   const currentYear = new Date().getFullYear();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xzdgopvv", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        form.reset();
+      } else {
+        alert("שגיאה בשליחת הטופס. אנא נסה שוב.");
+      }
+    } catch (error) {
+      alert("שגיאה בשליחת הטופס. אנא נסה שוב.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -99,47 +126,56 @@ const Index = () => {
            או השאר פרטים ונחזור אליך בהקדם
           </h3>
           <div className="max-w-sm mx-auto">
-            <form
-              action="https://formspree.io/f/xzdgopvv"
-              method="POST"
-              className="space-y-4"
-              dir="rtl"
-            >
-              <div>
-                <Label htmlFor="name">שם מלא</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="הכנס את שמך המלא"
-                  required
-                />
+            {isSubmitted ? (
+              <div className="text-center p-6 bg-green-100 border border-green-300 rounded-lg" dir="rtl">
+                <h4 className="text-lg font-semibold text-green-800">תודה!</h4>
+                <p className="text-green-700">הפרטים נשלחו בהצלחה. נחזור אליך בקרוב.</p>
+                <Button onClick={() => setIsSubmitted(false)} className="mt-4">
+                  שלח פרטים נוספים
+                </Button>
               </div>
-              <div>
-                <Label htmlFor="email">דוא"ל</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder='הכנס את כתובת הדוא"ל שלך'
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="phone">טלפון</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="הכנס את מספר הטלפון שלך"
-                  dir="rtl"
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full">
-                שלח
-              </Button>
-            </form>
+            ) : (
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4"
+                dir="rtl"
+              >
+                <div>
+                  <Label htmlFor="name">שם מלא</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="הכנס את שמך המלא"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email">דוא"ל</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder='הכנס את כתובת הדוא"ל שלך'
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="phone">טלפון</Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="הכנס את מספר הטלפון שלך"
+                    dir="rtl"
+                    required
+                  />
+                </div>
+                <Button type="submit" className="w-full">
+                  שלח
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       </section>
