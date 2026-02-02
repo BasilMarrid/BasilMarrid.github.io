@@ -95,12 +95,7 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl" />
                 <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14" />
               </div>
-              <div>
-                <h1 className="text-xl sm:text-2xl font-black tracking-tight text-primary-foreground">
-                  EY <span className="text-gradient-gold">CPA</span>
-                </h1>
-                <p className="text-[10px] sm:text-xs font-medium tracking-[0.2em] sm:tracking-[0.3em] uppercase text-gold-light">החזר מס</p>
-              </div>
+              <p className="text-sm sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
             </div>
 
             {/* Desktop Nav */}
@@ -192,20 +187,20 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 pt-28 sm:pt-40 pb-24 sm:pb-32 relative z-10">
           <div className="max-w-4xl mr-0 ml-auto">
             {/* Overline */}
-            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-8 opacity-0-initial animate-fade-in-up">
+            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-6 opacity-0-initial animate-fade-in-up">
               <div className="h-px w-8 sm:w-12 bg-gold" />
               <span className="text-gold font-semibold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm">מומחים בהחזרי מס</span>
             </div>
 
             {/* Main headline - responsive sizing */}
-            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-primary-foreground leading-[1] sm:leading-[0.95] mb-4 sm:mb-8 opacity-0-initial animate-fade-in-up delay-100">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-primary-foreground leading-[1] sm:leading-[0.95] mb-3 sm:mb-6 opacity-0-initial animate-fade-in-up delay-100">
               הכסף שלך
               <br />
               <span className="text-gradient-gold">מחכה לך</span>
             </h2>
 
             {/* Subheadline */}
-            <p className="text-base sm:text-xl md:text-2xl text-primary-foreground/70 max-w-xl mb-8 sm:mb-12 leading-relaxed opacity-0-initial animate-fade-in-up delay-200">
+            <p className="text-base sm:text-xl md:text-2xl text-primary-foreground/70 max-w-xl mb-6 sm:mb-10 leading-relaxed opacity-0-initial animate-fade-in-up delay-200">
               ניסיון של למעלה מ-5 שנים בליווי עסקים ולקוחות פרטיים.
               נמקסם את ההחזר שלך בצורה מקצועית ואמינה.
             </p>
@@ -230,7 +225,7 @@ const Index = () => {
             </div>
 
             {/* Trust indicators - horizontal scroll on mobile */}
-            <div className="mt-10 sm:mt-16 pt-6 sm:pt-8 border-t border-primary-foreground/10 opacity-0-initial animate-fade-in-up delay-400">
+            <div className="mt-8 sm:mt-14 pt-5 sm:pt-8 border-t border-primary-foreground/10 opacity-0-initial animate-fade-in-up delay-400">
               <div className="flex sm:flex-wrap items-center gap-4 sm:gap-8 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
                 <div className="flex items-center gap-2 text-primary-foreground/60 whitespace-nowrap">
                   <CheckCircle2 className="w-4 sm:w-5 h-4 sm:h-5 text-gold flex-shrink-0" />
@@ -263,8 +258,8 @@ const Index = () => {
         className="relative -mt-16 sm:-mt-20 z-20 pb-12 sm:pb-20"
       >
         <div className="container mx-auto px-4 sm:px-6">
-          {/* Horizontal scroll on mobile, grid on desktop */}
-          <div className={`flex sm:grid sm:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible pb-4 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x snap-mandatory scrollbar-hide ${isVisible.stats ? "opacity-100" : "opacity-0"} transition-all duration-700`}>
+          {/* Vertical on mobile, grid on desktop */}
+          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 ${isVisible.stats ? "opacity-100" : "opacity-0"} transition-all duration-700`}>
             {[
               { number: "5+", label: "שנות ניסיון", icon: TrendingUp },
               { number: "₪M+", label: "הוחזרו ללקוחות", icon: Sparkles },
@@ -272,13 +267,17 @@ const Index = () => {
             ].map((stat, index) => (
               <div
                 key={stat.label}
-                className="group relative bg-card rounded-xl sm:rounded-lg p-6 sm:p-8 shadow-elegant border border-border hover:border-gold/30 transition-all duration-500 min-w-[200px] sm:min-w-0 flex-shrink-0 snap-center"
+                className="group relative bg-card rounded-xl sm:rounded-lg p-5 sm:p-8 shadow-elegant border border-border hover:border-gold/30 transition-all duration-500"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-gold/5 rounded-bl-full" />
-                <stat.icon className="w-6 sm:w-8 h-6 sm:h-8 text-gold mb-3 sm:mb-4" />
-                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-navy mb-1 sm:mb-2">{stat.number}</div>
-                <div className="text-sm sm:text-base text-muted-foreground font-medium">{stat.label}</div>
+                <div className="flex items-center gap-4 sm:block">
+                  <stat.icon className="w-6 sm:w-8 h-6 sm:h-8 text-gold sm:mb-4 flex-shrink-0" />
+                  <div>
+                    <div className="text-2xl sm:text-4xl md:text-5xl font-black text-navy mb-0.5 sm:mb-2">{stat.number}</div>
+                    <div className="text-sm sm:text-base text-muted-foreground font-medium">{stat.label}</div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -434,7 +433,8 @@ const Index = () => {
                       type="tel"
                       placeholder="הכנס את מספר הטלפון שלך"
                       required
-                      className="mt-1.5 sm:mt-2 h-12 sm:h-12 bg-background border-border focus:border-gold focus:ring-gold text-base"
+                      dir="rtl"
+                      className="mt-1.5 sm:mt-2 h-12 sm:h-12 bg-background border-border focus:border-gold focus:ring-gold text-base placeholder:text-right"
                     />
                   </div>
                   <Button
@@ -460,7 +460,7 @@ const Index = () => {
           <div className="flex flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between">
             <div className="flex items-center gap-3">
               <img src="./favicon.ico" alt="Logo" className="w-8 sm:w-10 h-8 sm:h-10 opacity-80" />
-              <span className="text-primary-foreground/60 font-medium text-sm sm:text-base">EY CPA</span>
+              <span className="text-gold-light font-medium text-sm sm:text-base tracking-wider">החזר מס</span>
             </div>
             <p className="text-primary-foreground/50 text-xs sm:text-sm text-center">
               © {currentYear} EY CPA. כל הזכויות שמורות.
