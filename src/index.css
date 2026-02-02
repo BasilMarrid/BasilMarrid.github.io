@@ -92,8 +92,21 @@ All colors MUST be HSL.
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   }
 
+  .clip-diagonal-mobile {
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+  }
+
   .clip-diagonal-reverse {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+  }
+
+  /* Hide scrollbar but allow scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 
   /* Gold border accent */
