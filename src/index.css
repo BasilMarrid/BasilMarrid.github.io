@@ -73,6 +73,162 @@ All colors MUST be HSL.
   .shadow-gold {
     box-shadow: 0 4px 20px -4px hsl(38 80% 50% / 0.3);
   }
+
+  /* Geometric pattern background */
+  .bg-geometric {
+    background-image:
+      linear-gradient(30deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
+      linear-gradient(150deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
+      linear-gradient(30deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
+      linear-gradient(150deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
+      linear-gradient(60deg, hsl(215 60% 22% / 0.02) 25%, transparent 25.5%, transparent 75%, hsl(215 60% 22% / 0.02) 75%, hsl(215 60% 22% / 0.02)),
+      linear-gradient(60deg, hsl(215 60% 22% / 0.02) 25%, transparent 25.5%, transparent 75%, hsl(215 60% 22% / 0.02) 75%, hsl(215 60% 22% / 0.02));
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  }
+
+  /* Diagonal clip for hero */
+  .clip-diagonal {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+
+  .clip-diagonal-reverse {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+  }
+
+  /* Gold border accent */
+  .border-gold-gradient {
+    border-image: linear-gradient(135deg, hsl(38 80% 50%), hsl(45 70% 65%)) 1;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+  }
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-gold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 hsl(38 80% 50% / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 15px hsl(38 80% 50% / 0);
+  }
+}
+
+@keyframes draw-line {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  animation: fade-in-right 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(38 80% 50% / 0) 0%,
+    hsl(38 80% 50% / 0.3) 50%,
+    hsl(38 80% 50% / 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+.animate-draw-line {
+  animation: draw-line 1s ease-out forwards;
+}
+
+/* Animation delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
+
+/* Initially hidden for animation */
+.opacity-0-initial {
+  opacity: 0;
 }
 
 @layer base {
