@@ -412,7 +412,7 @@ const Index = () => {
                     </div>
                     <h5 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-2 sm:mb-3">תודה רבה!</h5>
                     <p className="text-sm sm:text-base text-primary-foreground/60 mb-4 sm:mb-6">הפרטים נשלחו בהצלחה. נחזור אליך בקרוב.</p>
-                    <Button onClick={() => setIsSubmitted(false)} variant="outline" className="h-11 sm:h-10 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                    <Button onClick={() => setIsSubmitted(false)} variant="outline" className="h-11 sm:h-10 border-blue-400/40 text-blue-400 hover:bg-blue-400/10">
                       שלח פרטים נוספים
                     </Button>
                   </div>
