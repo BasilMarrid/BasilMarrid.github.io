@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from "react";
 const Index = () => {
   const currentYear = new Date().getFullYear();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -55,6 +56,7 @@ const Index = () => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
+    setIsLoading(true);
 
     try {
       const response = await fetch("https://formspree.io/f/xzdgopvv", {
@@ -73,6 +75,8 @@ const Index = () => {
       }
     } catch {
       alert("שגיאה בשליחת הטופס. נסה שוב.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -454,9 +458,10 @@ const Index = () => {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full h-12 bg-gold hover:bg-gold-light text-navy font-bold text-base sm:text-lg transition-all duration-300 hover:shadow-gold active:scale-[0.98] rounded-xl"
+                      disabled={isLoading}
+                      className="w-full h-12 bg-gold hover:bg-gold-light text-navy font-bold text-base sm:text-lg transition-all duration-300 hover:shadow-gold active:scale-[0.98] rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      שלח פרטים
+                      {isLoading ? "שולח..." : "שלח פרטים"}
                     </Button>
                     <p className="text-[11px] sm:text-xs text-primary-foreground/40 text-center flex items-center justify-center gap-1.5">
                       <Shield className="w-3 h-3" />
