@@ -1,10 +1,11 @@
 import { NavLink } from "@/components/NavLink";
-import { ArrowRight, Award, Briefcase, GraduationCap, Phone, Mail, ChevronLeft } from "lucide-react";
+import { Menu, X, ArrowLeft, Award, Briefcase, GraduationCap, Phone, Mail, ChevronLeft } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 
 const AboutHe = () => {
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({});
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const observerRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
@@ -33,6 +34,19 @@ const AboutHe = () => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
 
   const setRef = (id: string) => (el: HTMLElement | null) => {
     observerRefs.current[id] = el;
@@ -74,29 +88,100 @@ const AboutHe = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden" dir="rtl">
       {/* Header */}
-      <header
-        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-background/95 backdrop-blur-md shadow-elegant border-b border-border"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="container mx-auto px-4 sm:px-6 py-4">
+      <header className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-primary/98 backdrop-blur-md shadow-lg" : "bg-primary/95 backdrop-blur-sm"
+      } border-b border-gold/20`}>
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <NavLink
-              to="/"
-              className="group flex items-center gap-2 text-gold hover:text-gold-light transition-colors"
+            <NavLink to="/" className="flex items-center gap-3 sm:gap-4">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl" />
+                <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14" />
+              </div>
+              <p className="text-sm sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
+            </NavLink>
+
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-6">
+              <NavLink
+                to="/"
+                className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+              >
+                <span className="relative z-10">ראשי</span>
+                <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
+              </NavLink>
+              <NavLink
+                to="/about"
+                className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+              >
+                <span className="relative z-10">מי אנחנו?</span>
+                <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
+              </NavLink>
+              <NavLink
+                to="/#contact"
+                className="px-5 py-2.5 bg-gold hover:bg-gold-light text-navy font-bold text-sm rounded transition-all duration-300 hover:shadow-gold"
+              >
+                צור קשר
+              </NavLink>
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 -ml-2 text-gold hover:text-gold-light transition-colors"
+              aria-label="תפריט"
             >
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              <span className="font-semibold text-sm sm:text-base">חזרה לעמוד הבית</span>
-            </NavLink>
-            <NavLink to="/" className="flex items-center gap-3">
-              <img src="./favicon.ico" alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10" />
-              <span className="text-gold font-bold tracking-wider text-sm sm:text-base">EY CPA</span>
-            </NavLink>
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-40 bg-navy/95 backdrop-blur-lg md:hidden transition-all duration-300 ${
+          mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+        onClick={closeMobileMenu}
+      >
+        <div
+          className={`absolute top-20 right-0 left-0 p-6 transition-all duration-300 ${
+            mobileMenuOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <nav className="flex flex-col gap-2">
+            <NavLink
+              to="/"
+              onClick={closeMobileMenu}
+              className="flex items-center justify-between p-4 bg-navy-light/30 rounded-xl text-lg font-semibold text-primary-foreground hover:bg-navy-light/50 transition-colors active:scale-[0.98]"
+            >
+              <span>ראשי</span>
+              <ArrowLeft className="w-5 h-5 text-gold" />
+            </NavLink>
+            <NavLink
+              to="/#contact"
+              onClick={closeMobileMenu}
+              className="flex items-center justify-between p-4 bg-gold/20 rounded-xl text-lg font-semibold text-gold hover:bg-gold/30 transition-colors active:scale-[0.98]"
+            >
+              <span>צור קשר</span>
+              <Phone className="w-5 h-5" />
+            </NavLink>
+          </nav>
+
+          {/* Quick Contact in Mobile Menu */}
+          <div className="mt-8 pt-6 border-t border-primary-foreground/10">
+            <p className="text-sm text-primary-foreground/60 mb-4">התקשר עכשיו</p>
+            <a
+              href="tel:+972549452800"
+              className="flex items-center gap-4 p-4 bg-gold text-navy rounded-xl font-bold text-lg active:scale-[0.98] transition-transform"
+            >
+              <Phone className="w-6 h-6" />
+              <span dir="ltr">054-945-2800</span>
+            </a>
+          </div>
+        </div>
+      </div>
 
       {/* Hero Section */}
       <section className="relative pt-24 sm:pt-32 pb-16 sm:pb-24 bg-gradient-hero overflow-hidden">
@@ -397,7 +482,7 @@ const AboutHe = () => {
               to="/"
               className="text-primary-foreground/60 hover:text-gold text-xs sm:text-sm transition-colors"
             >
-              עמוד הבית
+              ראשי
             </NavLink>
           </div>
         </div>

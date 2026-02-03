@@ -101,6 +101,13 @@ const Index = () => {
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6">
               <NavLink
+                to="/"
+                className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+              >
+                <span className="relative z-10">ראשי</span>
+                <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
+              </NavLink>
+              <NavLink
                 to="/about"
                 className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
               >
