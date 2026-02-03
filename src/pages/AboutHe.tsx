@@ -77,22 +77,22 @@ const AboutHe = () => {
       <header
         className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-gold/98 backdrop-blur-md shadow-elegant border-b border-navy/20"
-            : "bg-gold/95"
+            ? "bg-background/95 backdrop-blur-md shadow-elegant border-b border-border"
+            : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <NavLink
               to="/"
-              className="group flex items-center gap-2 text-navy hover:text-navy/70 transition-colors"
+              className="group flex items-center gap-2 text-foreground hover:text-gold transition-colors"
             >
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               <span className="font-semibold text-sm sm:text-base">חזרה לעמוד הבית</span>
             </NavLink>
             <div className="flex items-center gap-3">
               <img src="./favicon.ico" alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10" />
-              <span className="text-navy font-bold tracking-wider text-sm sm:text-base">EY CPA</span>
+              <span className="text-gold font-bold tracking-wider text-sm sm:text-base">EY CPA</span>
             </div>
           </div>
         </div>
