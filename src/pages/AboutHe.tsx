@@ -85,15 +85,15 @@ const AboutHe = () => {
           <div className="flex items-center justify-between">
             <NavLink
               to="/"
-              className="group flex items-center gap-2 text-foreground hover:text-gold transition-colors"
+              className="group flex items-center gap-2 text-gold hover:text-gold-light transition-colors"
             >
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               <span className="font-semibold text-sm sm:text-base">חזרה לעמוד הבית</span>
             </NavLink>
-            <div className="flex items-center gap-3">
+            <NavLink to="/" className="flex items-center gap-3">
               <img src="./favicon.ico" alt="Logo" className="w-8 h-8 sm:w-10 sm:h-10" />
               <span className="text-gold font-bold tracking-wider text-sm sm:text-base">EY CPA</span>
-            </div>
+            </NavLink>
           </div>
         </div>
       </header>

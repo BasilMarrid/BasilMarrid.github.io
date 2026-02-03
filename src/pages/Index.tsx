@@ -90,13 +90,13 @@ const Index = () => {
       } border-b border-gold/20`}>
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 sm:gap-4">
+            <NavLink to="/" className="flex items-center gap-3 sm:gap-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl" />
                 <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14" />
               </div>
               <p className="text-sm sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
-            </div>
+            </NavLink>
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6">
