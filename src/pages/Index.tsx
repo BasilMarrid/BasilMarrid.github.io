@@ -387,67 +387,79 @@ const Index = () => {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-card rounded-xl sm:rounded-lg p-5 sm:p-8 shadow-elegant order-1 lg:order-2">
-              <h4 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6 text-center lg:text-right">השאר פרטים</h4>
+            <div className="relative order-1 lg:order-2">
+              {/* Glow behind card */}
+              <div className="absolute -inset-4 bg-gold/10 rounded-3xl blur-2xl" />
+              <div className="relative bg-card rounded-2xl border border-gold/20 shadow-gold overflow-hidden">
+                {/* Gold top accent bar */}
+                <div className="h-1 bg-gradient-to-r from-gold via-gold-light to-gold" />
+                {/* Corner decoration */}
+                <div className="absolute top-0 right-0 w-28 h-28 bg-gold/5 rounded-bl-full" />
 
-              {isSubmitted ? (
-                <div className="text-center py-8 sm:py-12">
-                  <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-scale-in">
-                    <CheckCircle2 className="w-8 sm:w-10 h-8 sm:h-10 text-green-600" />
-                  </div>
-                  <h5 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">תודה רבה!</h5>
-                  <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">הפרטים נשלחו בהצלחה. נחזור אליך בקרוב.</p>
-                  <Button onClick={() => setIsSubmitted(false)} variant="outline" className="h-11 sm:h-10">
-                    שלח פרטים נוספים
-                  </Button>
+                <div className="p-5 sm:p-8">
+                  <h4 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6 text-center lg:text-right relative">השאר פרטים</h4>
+
+                  {isSubmitted ? (
+                    <div className="text-center py-8 sm:py-12 relative">
+                      <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-scale-in">
+                        <CheckCircle2 className="w-8 sm:w-10 h-8 sm:h-10 text-green-600" />
+                      </div>
+                      <h5 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3">תודה רבה!</h5>
+                      <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">הפרטים נשלחו בהצלחה. נחזור אליך בקרוב.</p>
+                      <Button onClick={() => setIsSubmitted(false)} variant="outline" className="h-11 sm:h-10">
+                        שלח פרטים נוספים
+                      </Button>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 relative">
+                      <div>
+                        <Label htmlFor="name" className="text-gold font-semibold text-sm">שם מלא</Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          type="text"
+                          placeholder="הכנס את שמך המלא"
+                          required
+                          className="mt-1.5 sm:mt-2 h-12 bg-background border-border hover:border-gold/50 focus:border-gold focus:ring-gold text-base transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="email" className="text-gold font-semibold text-sm">דוא"ל</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          placeholder='הכנס את כתובת הדוא"ל שלך'
+                          required
+                          className="mt-1.5 sm:mt-2 h-12 bg-background border-border hover:border-gold/50 focus:border-gold focus:ring-gold text-base transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="phone" className="text-gold font-semibold text-sm">טלפון</Label>
+                        <Input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          placeholder="הכנס את מספר הטלפון שלך"
+                          required
+                          dir="rtl"
+                          className="mt-1.5 sm:mt-2 h-12 bg-background border-border hover:border-gold/50 focus:border-gold focus:ring-gold text-base placeholder:text-right transition-colors"
+                        />
+                      </div>
+                      <Button
+                        type="submit"
+                        className="w-full h-12 bg-gold hover:bg-gold-light text-navy font-bold text-base sm:text-lg transition-all duration-300 hover:shadow-gold active:scale-[0.98] rounded-xl"
+                      >
+                        שלח פרטים
+                      </Button>
+                      <p className="text-[11px] sm:text-xs text-muted-foreground text-center flex items-center justify-center gap-1.5">
+                        <Shield className="w-3 h-3" />
+                        המידע שלך מאובטח ולא יועבר לצד שלישי
+                      </p>
+                    </form>
+                  )}
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
-                  <div>
-                    <Label htmlFor="name" className="text-foreground font-semibold text-sm sm:text-base">שם מלא</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      type="text"
-                      placeholder="הכנס את שמך המלא"
-                      required
-                      className="mt-1.5 sm:mt-2 h-12 sm:h-12 bg-background border-border focus:border-gold focus:ring-gold text-base"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email" className="text-foreground font-semibold text-sm sm:text-base">דוא"ל</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder='הכנס את כתובת הדוא"ל שלך'
-                      required
-                      className="mt-1.5 sm:mt-2 h-12 sm:h-12 bg-background border-border focus:border-gold focus:ring-gold text-base"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="phone" className="text-foreground font-semibold text-sm sm:text-base">טלפון</Label>
-                    <Input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="הכנס את מספר הטלפון שלך"
-                      required
-                      dir="rtl"
-                      className="mt-1.5 sm:mt-2 h-12 sm:h-12 bg-background border-border focus:border-gold focus:ring-gold text-base placeholder:text-right"
-                    />
-                  </div>
-                  <Button
-                    type="submit"
-                    className="w-full h-12 sm:h-12 bg-gold hover:bg-gold-light text-navy font-bold text-base sm:text-lg transition-all duration-300 hover:shadow-gold active:scale-[0.98] rounded-xl sm:rounded"
-                  >
-                    שלח פרטים
-                  </Button>
-                  <p className="text-[11px] sm:text-xs text-muted-foreground text-center">
-                    המידע שלך מאובטח ולא יועבר לצד שלישי
-                  </p>
-                </form>
-              )}
+              </div>
             </div>
           </div>
         </div>
