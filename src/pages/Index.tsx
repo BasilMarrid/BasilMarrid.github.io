@@ -86,30 +86,30 @@ const Index = () => {
     <div className="min-h-screen bg-background overflow-x-hidden" dir="rtl">
       {/* Header */}
       <header className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-primary/98 backdrop-blur-md shadow-lg" : "bg-primary/95 backdrop-blur-sm"
-      } border-b border-gold/20`}>
+        scrolled ? "bg-gold/98 backdrop-blur-md shadow-lg" : "bg-gold/95 backdrop-blur-sm"
+      } border-b border-navy/20`}>
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl" />
+                <div className="absolute inset-0 bg-navy/20 rounded-full blur-xl" />
                 <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14" />
               </div>
-              <p className="text-sm sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
+              <p className="text-sm sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-navy">החזר מס</p>
             </div>
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6">
               <NavLink
                 to="/about"
-                className="group relative px-4 py-2 text-sm font-semibold text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                className="group relative px-4 py-2 text-sm font-semibold text-navy/80 hover:text-navy transition-colors"
               >
                 <span className="relative z-10">מי אנחנו?</span>
-                <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
+                <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-navy group-hover:w-full transition-all duration-300" />
               </NavLink>
               <a
                 href="#contact"
-                className="px-5 py-2.5 bg-gold hover:bg-gold-light text-navy font-bold text-sm rounded transition-all duration-300 hover:shadow-gold"
+                className="px-5 py-2.5 bg-navy hover:bg-navy-light text-gold font-bold text-sm rounded transition-all duration-300 hover:shadow-elegant"
               >
                 צור קשר
               </a>
@@ -118,7 +118,7 @@ const Index = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 -ml-2 text-primary-foreground hover:text-gold transition-colors"
+              className="md:hidden p-2 -ml-2 text-navy hover:text-navy/70 transition-colors"
               aria-label="תפריט"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
