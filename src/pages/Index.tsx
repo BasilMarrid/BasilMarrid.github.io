@@ -482,12 +482,6 @@ const Index = () => {
             <p className="text-primary-foreground/50 text-xs sm:text-sm text-center">
               © {currentYear} EY CPA. כל הזכויות שמורות.
             </p>
-            <NavLink
-              to="/about"
-              className="text-primary-foreground/60 hover:text-gold text-xs sm:text-sm transition-colors"
-            >
-              מי אנחנו?
-            </NavLink>
           </div>
         </div>
       </footer>

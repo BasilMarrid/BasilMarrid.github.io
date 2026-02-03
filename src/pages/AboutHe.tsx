@@ -478,12 +478,6 @@ const AboutHe = () => {
             <p className="text-primary-foreground/50 text-xs sm:text-sm text-center">
               © {new Date().getFullYear()} EY CPA. כל הזכויות שמורות.
             </p>
-            <NavLink
-              to="/"
-              className="text-primary-foreground/60 hover:text-gold text-xs sm:text-sm transition-colors"
-            >
-              ראשי
-            </NavLink>
           </div>
         </div>
       </footer>
