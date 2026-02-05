@@ -92,34 +92,34 @@ const Index = () => {
       <header className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-primary/98 backdrop-blur-md shadow-lg" : "bg-primary/95 backdrop-blur-sm"
       } border-b border-gold/20`}>
-        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8 py-3 sm:py-4 2xl:py-6">
           <div className="flex items-center justify-between">
-            <NavLink to="/" className="flex items-center gap-3 sm:gap-4">
+            <NavLink to="/" className="flex items-center gap-3 sm:gap-4 2xl:gap-5">
               <div className="relative">
-                <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl" />
-                <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14" />
+                <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl 2xl:blur-2xl" />
+                <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14 2xl:w-16 2xl:h-16" />
               </div>
             </NavLink>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-6 2xl:gap-8">
               <NavLink
                 to="/"
-                className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-gold hover:text-gold-light transition-colors"
               >
                 <span className="relative z-10">ראשי</span>
                 <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
               </NavLink>
               <NavLink
                 to="/about"
-                className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-gold hover:text-gold-light transition-colors"
               >
                 <span className="relative z-10">מי אנחנו?</span>
                 <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
               </NavLink>
               <a
                 href="#contact"
-                className="px-5 py-2.5 bg-gold hover:bg-gold-light text-navy font-bold text-sm rounded transition-all duration-300 hover:shadow-gold"
+                className="px-5 py-2.5 2xl:px-6 2xl:py-3 bg-gold hover:bg-gold-light text-navy font-bold text-sm 2xl:text-base rounded transition-all duration-300 hover:shadow-gold"
               >
                 צור קשר
               </a>
@@ -187,67 +187,67 @@ const Index = () => {
       <section className="relative min-h-[100svh] bg-gradient-hero clip-diagonal-mobile sm:clip-diagonal overflow-hidden">
         {/* Decorative elements - reduced on mobile */}
         <div className="absolute inset-0 noise-overlay" />
-        <div className="absolute top-20 left-5 sm:left-10 w-40 sm:w-72 h-40 sm:h-72 bg-gold/5 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-40 right-10 sm:right-20 w-52 sm:w-96 h-52 sm:h-96 bg-gold/10 rounded-full blur-3xl animate-float delay-300" />
+        <div className="absolute top-20 left-5 sm:left-10 2xl:left-16 w-40 sm:w-72 2xl:w-96 h-40 sm:h-72 2xl:h-96 bg-gold/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-40 right-10 sm:right-20 2xl:right-32 w-52 sm:w-96 2xl:w-[500px] h-52 sm:h-96 2xl:h-[500px] bg-gold/10 rounded-full blur-3xl animate-float delay-300" />
 
         {/* Geometric accent lines - hidden on very small screens */}
         <div className="hidden sm:block absolute top-1/4 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
         <div className="hidden sm:block absolute bottom-1/3 right-0 w-1/4 h-px bg-gradient-to-l from-transparent via-gold/30 to-transparent" />
 
-        <div className="container mx-auto px-4 sm:px-6 pt-28 sm:pt-40 pb-24 sm:pb-32 relative z-10">
-          <div className="max-w-4xl mr-0 ml-auto">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8 pt-28 sm:pt-40 2xl:pt-48 pb-24 sm:pb-32 2xl:pb-40 relative z-10">
+          <div className="max-w-4xl 2xl:max-w-5xl mr-0 ml-auto">
             {/* Overline */}
-            <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-6 opacity-0-initial animate-fade-in-up">
-              <div className="h-px w-8 sm:w-12 bg-gold" />
-              <span className="text-gold font-semibold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm">מומחים בהחזרי מס</span>
+            <div className="flex items-center gap-2 sm:gap-3 2xl:gap-4 mb-3 sm:mb-6 2xl:mb-8 opacity-0-initial animate-fade-in-up">
+              <div className="h-px w-8 sm:w-12 2xl:w-16 bg-gold" />
+              <span className="text-gold font-semibold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm 2xl:text-base">מומחים בהחזרי מס</span>
             </div>
 
             {/* Main headline - responsive sizing */}
-            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-primary-foreground leading-[1] sm:leading-[0.95] mb-3 sm:mb-6 opacity-0-initial animate-fade-in-up delay-100">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl 2xl:text-9xl font-black text-primary-foreground leading-[1] sm:leading-[0.95] mb-3 sm:mb-6 2xl:mb-8 opacity-0-initial animate-fade-in-up delay-100">
               הכסף שלך
               <br />
               <span className="text-gradient-gold">מחכה לך</span>
             </h2>
 
             {/* Subheadline */}
-            <p className="text-base sm:text-xl md:text-2xl text-primary-foreground/70 max-w-xl mb-6 sm:mb-10 leading-relaxed opacity-0-initial animate-fade-in-up delay-200">
+            <p className="text-base sm:text-xl md:text-2xl 2xl:text-3xl text-primary-foreground/70 max-w-xl 2xl:max-w-2xl mb-6 sm:mb-10 2xl:mb-12 leading-relaxed opacity-0-initial animate-fade-in-up delay-200">
               ניסיון של למעלה מ-5 שנים בליווי עסקים ולקוחות פרטיים.
               נמקסם את ההחזר שלך בצורה מקצועית ואמינה.
             </p>
 
             {/* CTA Buttons - stacked on mobile */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto sm:mx-0 opacity-0-initial animate-fade-in-up delay-300">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 2xl:gap-6 max-w-md sm:max-w-none mx-auto sm:mx-0 opacity-0-initial animate-fade-in-up delay-300">
               <a
                 href="#contact"
-                className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-4 bg-gold text-navy font-bold text-base sm:text-lg rounded-xl sm:rounded overflow-hidden transition-all duration-300 hover:shadow-gold active:scale-[0.98]"
+                className="group relative inline-flex items-center justify-center gap-3 2xl:gap-4 px-6 sm:px-8 2xl:px-10 py-4 2xl:py-5 bg-gold text-navy font-bold text-base sm:text-lg 2xl:text-xl rounded-xl sm:rounded overflow-hidden transition-all duration-300 hover:shadow-gold active:scale-[0.98]"
               >
                 <span className="relative z-10">בדוק זכאות להחזר</span>
-                <ArrowLeft className="relative z-10 w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                <ArrowLeft className="relative z-10 w-5 h-5 2xl:w-6 2xl:h-6 group-hover:-translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-gold-light translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
               </a>
               <a
                 href="tel:+972549452800"
-                className="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-4 border-2 border-primary-foreground/30 text-primary-foreground font-semibold text-base sm:text-lg rounded-xl sm:rounded hover:border-gold hover:text-gold transition-all duration-300 active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-3 2xl:gap-4 px-6 sm:px-8 2xl:px-10 py-4 2xl:py-5 border-2 border-primary-foreground/30 text-primary-foreground font-semibold text-base sm:text-lg 2xl:text-xl rounded-xl sm:rounded hover:border-gold hover:text-gold transition-all duration-300 active:scale-[0.98]"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-5 h-5 2xl:w-6 2xl:h-6" />
                 <span dir="ltr">054-945-2800</span>
               </a>
             </div>
 
             {/* Trust indicators - horizontal scroll on mobile */}
-            <div className="mt-8 sm:mt-14 pt-5 sm:pt-8 border-t border-primary-foreground/10 opacity-0-initial animate-fade-in-up delay-400">
-              <div className="flex sm:flex-wrap items-center gap-4 sm:gap-8 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
-                <div className="flex items-center gap-2 text-primary-foreground/60 whitespace-nowrap">
-                  <CheckCircle2 className="w-4 sm:w-5 h-4 sm:h-5 text-gold flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-medium">ללא עלות ראשונית</span>
+            <div className="mt-8 sm:mt-14 2xl:mt-16 pt-5 sm:pt-8 2xl:pt-10 border-t border-primary-foreground/10 opacity-0-initial animate-fade-in-up delay-400">
+              <div className="flex sm:flex-wrap items-center gap-4 sm:gap-8 2xl:gap-12 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide">
+                <div className="flex items-center gap-2 2xl:gap-3 text-primary-foreground/60 whitespace-nowrap">
+                  <CheckCircle2 className="w-4 sm:w-5 2xl:w-6 h-4 sm:h-5 2xl:h-6 text-gold flex-shrink-0" />
+                  <span className="text-xs sm:text-sm 2xl:text-base font-medium">ללא עלות ראשונית</span>
                 </div>
-                <div className="flex items-center gap-2 text-primary-foreground/60 whitespace-nowrap">
-                  <Shield className="w-4 sm:w-5 h-4 sm:h-5 text-gold flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-medium">סודיות מוחלטת</span>
+                <div className="flex items-center gap-2 2xl:gap-3 text-primary-foreground/60 whitespace-nowrap">
+                  <Shield className="w-4 sm:w-5 2xl:w-6 h-4 sm:h-5 2xl:h-6 text-gold flex-shrink-0" />
+                  <span className="text-xs sm:text-sm 2xl:text-base font-medium">סודיות מוחלטת</span>
                 </div>
-                <div className="flex items-center gap-2 text-primary-foreground/60 whitespace-nowrap">
-                  <Clock className="w-4 sm:w-5 h-4 sm:h-5 text-gold flex-shrink-0" />
-                  <span className="text-xs sm:text-sm font-medium">מענה תוך 24 שעות</span>
+                <div className="flex items-center gap-2 2xl:gap-3 text-primary-foreground/60 whitespace-nowrap">
+                  <Clock className="w-4 sm:w-5 2xl:w-6 h-4 sm:h-5 2xl:h-6 text-gold flex-shrink-0" />
+                  <span className="text-xs sm:text-sm 2xl:text-base font-medium">מענה תוך 24 שעות</span>
                 </div>
               </div>
             </div>
@@ -265,11 +265,11 @@ const Index = () => {
       <section
         id="stats"
         ref={setRef("stats")}
-        className="relative -mt-16 sm:-mt-20 z-20 pb-12 sm:pb-20"
+        className="relative -mt-16 sm:-mt-20 2xl:-mt-24 z-20 pb-12 sm:pb-20 2xl:pb-28"
       >
-        <div className="container mx-auto px-4 sm:px-6">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8">
           {/* Vertical on mobile, grid on desktop */}
-          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 ${isVisible.stats ? "opacity-100" : "opacity-0"} transition-all duration-700`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 2xl:gap-8 ${isVisible.stats ? "opacity-100" : "opacity-0"} transition-all duration-700`}>
             {[
               { number: "5+", label: "שנות ניסיון", icon: TrendingUp },
               { number: "₪M+", label: "הוחזרו ללקוחות", icon: Sparkles },
@@ -277,15 +277,15 @@ const Index = () => {
             ].map((stat, index) => (
               <div
                 key={stat.label}
-                className="group relative bg-card rounded-xl sm:rounded-lg p-5 sm:p-8 shadow-elegant border border-border hover:border-gold/30 transition-all duration-500"
+                className="group relative bg-card rounded-xl sm:rounded-lg 2xl:rounded-2xl p-5 sm:p-8 2xl:p-10 shadow-elegant border border-border hover:border-gold/30 transition-all duration-500"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="absolute top-0 right-0 w-16 sm:w-20 h-16 sm:h-20 bg-gold/5 rounded-bl-full" />
+                <div className="absolute top-0 right-0 w-16 sm:w-20 2xl:w-24 h-16 sm:h-20 2xl:h-24 bg-gold/5 rounded-bl-full" />
                 <div className="flex items-center gap-4 sm:block">
-                  <stat.icon className="w-6 sm:w-8 h-6 sm:h-8 text-gold sm:mb-4 flex-shrink-0" />
+                  <stat.icon className="w-6 sm:w-8 2xl:w-10 h-6 sm:h-8 2xl:h-10 text-gold sm:mb-4 2xl:mb-6 flex-shrink-0" />
                   <div>
-                    <div className="text-2xl sm:text-4xl md:text-5xl font-black text-navy mb-0.5 sm:mb-2">{stat.number}</div>
-                    <div className="text-sm sm:text-base text-muted-foreground font-medium">{stat.label}</div>
+                    <div className="text-2xl sm:text-4xl md:text-5xl 2xl:text-6xl font-black text-navy mb-0.5 sm:mb-2 2xl:mb-3">{stat.number}</div>
+                    <div className="text-sm sm:text-base 2xl:text-lg text-muted-foreground font-medium">{stat.label}</div>
                   </div>
                 </div>
               </div>
@@ -298,20 +298,20 @@ const Index = () => {
       <section
         id="services"
         ref={setRef("services")}
-        className="py-16 sm:py-24 bg-geometric relative"
+        className="py-16 sm:py-24 2xl:py-32 bg-geometric relative"
       >
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className={`max-w-3xl mx-auto text-center mb-10 sm:mb-16 ${isVisible.services ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} transition-all duration-700`}>
-            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 bg-gold/10 text-gold font-semibold text-xs sm:text-sm rounded-full mb-4 sm:mb-6">השירותים שלנו</span>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-foreground mb-4 sm:mb-6">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8">
+          <div className={`max-w-3xl 2xl:max-w-4xl mx-auto text-center mb-10 sm:mb-16 2xl:mb-20 ${isVisible.services ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} transition-all duration-700`}>
+            <span className="inline-block px-3 sm:px-4 2xl:px-5 py-1 sm:py-1.5 2xl:py-2 bg-gold/10 text-gold font-semibold text-xs sm:text-sm 2xl:text-base rounded-full mb-4 sm:mb-6 2xl:mb-8">השירותים שלנו</span>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-black text-foreground mb-4 sm:mb-6 2xl:mb-8">
               פתרונות מס <span className="text-gradient-gold">מקיפים</span>
             </h3>
-            <p className="text-base sm:text-lg text-muted-foreground px-4 sm:px-0">
+            <p className="text-base sm:text-lg 2xl:text-xl text-muted-foreground px-4 sm:px-0">
               אנו מציעים מגוון רחב של שירותי החזרי מס ללקוחות פרטיים ועסקיים
             </p>
           </div>
 
-          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto ${isVisible.services ? "opacity-100" : "opacity-0"} transition-all duration-700 delay-200`}>
+          <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8 2xl:gap-10 max-w-4xl 2xl:max-w-6xl mx-auto ${isVisible.services ? "opacity-100" : "opacity-0"} transition-all duration-700 delay-200`}>
             {[
               { title: "החזרי מס לשכירים", desc: "בדיקת זכאות והגשת בקשות להחזר מס עבור עובדים שכירים" },
               { title: "החזרי מס לעצמאים", desc: "ליווי מקצועי לעצמאים ובעלי עסקים קטנים" },
@@ -320,12 +320,12 @@ const Index = () => {
             ].map((service, index) => (
               <div
                 key={service.title}
-                className="group relative p-5 sm:p-8 bg-card rounded-xl sm:rounded-lg border border-border hover:border-gold/50 hover:shadow-elegant transition-all duration-500 active:scale-[0.99]"
+                className="group relative p-5 sm:p-8 2xl:p-10 bg-card rounded-xl sm:rounded-lg 2xl:rounded-2xl border border-border hover:border-gold/50 hover:shadow-elegant transition-all duration-500 active:scale-[0.99]"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="absolute top-0 right-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500 rounded-tr-xl sm:rounded-tr-lg" />
-                <h4 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">{service.title}</h4>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{service.desc}</p>
+                <div className="absolute top-0 right-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500 rounded-tr-xl sm:rounded-tr-lg 2xl:rounded-tr-2xl" />
+                <h4 className="text-lg sm:text-xl 2xl:text-2xl font-bold text-foreground mb-2 sm:mb-3 2xl:mb-4">{service.title}</h4>
+                <p className="text-sm sm:text-base 2xl:text-lg text-muted-foreground leading-relaxed">{service.desc}</p>
               </div>
             ))}
           </div>
@@ -336,62 +336,62 @@ const Index = () => {
       <section
         id="contact"
         ref={setRef("contact")}
-        className="py-16 sm:py-24 bg-primary relative overflow-hidden"
+        className="py-16 sm:py-24 2xl:py-32 bg-primary relative overflow-hidden"
       >
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-        <div className="absolute top-20 right-5 sm:right-10 w-40 sm:w-64 h-40 sm:h-64 bg-gold/5 rounded-full blur-3xl" />
+        <div className="absolute top-20 right-5 sm:right-10 2xl:right-16 w-40 sm:w-64 2xl:w-80 h-40 sm:h-64 2xl:h-80 bg-gold/5 rounded-full blur-3xl" />
 
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className={`text-center mb-10 sm:mb-16 ${isVisible.contact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} transition-all duration-700`}>
-            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 bg-gold/20 text-gold font-semibold text-xs sm:text-sm rounded-full mb-4 sm:mb-6">צור קשר</span>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-foreground mb-4 sm:mb-6">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8 relative z-10">
+          <div className={`text-center mb-10 sm:mb-16 2xl:mb-20 ${isVisible.contact ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} transition-all duration-700`}>
+            <span className="inline-block px-3 sm:px-4 2xl:px-5 py-1 sm:py-1.5 2xl:py-2 bg-gold/20 text-gold font-semibold text-xs sm:text-sm 2xl:text-base rounded-full mb-4 sm:mb-6 2xl:mb-8">צור קשר</span>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-black text-primary-foreground mb-4 sm:mb-6 2xl:mb-8">
               בואו <span className="text-gradient-gold">נדבר</span>
             </h3>
-            <p className="text-base sm:text-lg text-primary-foreground/70 max-w-xl mx-auto px-4 sm:px-0">
+            <p className="text-base sm:text-lg 2xl:text-xl text-primary-foreground/70 max-w-xl 2xl:max-w-2xl mx-auto px-4 sm:px-0">
               השאירו פרטים ונחזור אליכם תוך 24 שעות עם הערכה ראשונית
             </p>
           </div>
 
-          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 max-w-5xl mx-auto ${isVisible.contact ? "opacity-100" : "opacity-0"} transition-all duration-700 delay-200`}>
+          <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 2xl:gap-16 max-w-5xl 2xl:max-w-7xl mx-auto ${isVisible.contact ? "opacity-100" : "opacity-0"} transition-all duration-700 delay-200`}>
             {/* Contact Info */}
-            <div className="space-y-4 sm:space-y-6 order-2 lg:order-1">
-              <h4 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-4 sm:mb-8 text-center lg:text-right">פרטי התקשרות</h4>
+            <div className="space-y-4 sm:space-y-6 2xl:space-y-8 order-2 lg:order-1">
+              <h4 className="text-xl sm:text-2xl 2xl:text-3xl font-bold text-primary-foreground mb-4 sm:mb-8 2xl:mb-10 text-center lg:text-right">פרטי התקשרות</h4>
 
               <a
                 href="tel:+972549452800"
-                className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-navy-light/30 border border-primary-foreground/10 rounded-xl sm:rounded-lg hover:border-gold/50 hover:bg-navy-light/50 transition-all duration-300 active:scale-[0.98]"
+                className="group flex items-center gap-3 sm:gap-4 2xl:gap-5 p-4 sm:p-5 2xl:p-6 bg-navy-light/30 border border-primary-foreground/10 rounded-xl sm:rounded-lg 2xl:rounded-2xl hover:border-gold/50 hover:bg-navy-light/50 transition-all duration-300 active:scale-[0.98]"
               >
-                <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-gold/20 flex items-center justify-center group-hover:animate-pulse-gold flex-shrink-0">
-                  <Phone className="w-5 sm:w-6 h-5 sm:h-6 text-gold" />
+                <div className="w-12 sm:w-14 2xl:w-16 h-12 sm:h-14 2xl:h-16 rounded-full bg-gold/20 flex items-center justify-center group-hover:animate-pulse-gold flex-shrink-0">
+                  <Phone className="w-5 sm:w-6 2xl:w-7 h-5 sm:h-6 2xl:h-7 text-gold" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-sm text-primary-foreground/60 mb-0.5 sm:mb-1">טלפון</p>
-                  <p className="text-lg sm:text-xl font-bold text-primary-foreground truncate" dir="ltr">054-945-2800</p>
+                  <p className="text-xs sm:text-sm 2xl:text-base text-primary-foreground/60 mb-0.5 sm:mb-1">טלפון</p>
+                  <p className="text-lg sm:text-xl 2xl:text-2xl font-bold text-primary-foreground truncate" dir="ltr">054-945-2800</p>
                 </div>
               </a>
 
               <a
                 href="mailto:contact@eycpa.org.il"
-                className="group flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-navy-light/30 border border-primary-foreground/10 rounded-xl sm:rounded-lg hover:border-gold/50 hover:bg-navy-light/50 transition-all duration-300 active:scale-[0.98]"
+                className="group flex items-center gap-3 sm:gap-4 2xl:gap-5 p-4 sm:p-5 2xl:p-6 bg-navy-light/30 border border-primary-foreground/10 rounded-xl sm:rounded-lg 2xl:rounded-2xl hover:border-gold/50 hover:bg-navy-light/50 transition-all duration-300 active:scale-[0.98]"
               >
-                <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-gold/20 flex items-center justify-center group-hover:animate-pulse-gold flex-shrink-0">
-                  <Mail className="w-5 sm:w-6 h-5 sm:h-6 text-gold" />
+                <div className="w-12 sm:w-14 2xl:w-16 h-12 sm:h-14 2xl:h-16 rounded-full bg-gold/20 flex items-center justify-center group-hover:animate-pulse-gold flex-shrink-0">
+                  <Mail className="w-5 sm:w-6 2xl:w-7 h-5 sm:h-6 2xl:h-7 text-gold" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-sm text-primary-foreground/60 mb-0.5 sm:mb-1">דוא"ל</p>
-                  <p className="text-lg sm:text-xl font-bold text-primary-foreground truncate">contact@eycpa.org.il</p>
+                  <p className="text-xs sm:text-sm 2xl:text-base text-primary-foreground/60 mb-0.5 sm:mb-1">דוא"ל</p>
+                  <p className="text-lg sm:text-xl 2xl:text-2xl font-bold text-primary-foreground truncate">contact@eycpa.org.il</p>
                 </div>
               </a>
 
-              <div className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5 bg-navy-light/30 border border-primary-foreground/10 rounded-xl sm:rounded-lg">
-                <div className="w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 sm:w-6 h-5 sm:h-6 text-gold" />
+              <div className="flex items-center gap-3 sm:gap-4 2xl:gap-5 p-4 sm:p-5 2xl:p-6 bg-navy-light/30 border border-primary-foreground/10 rounded-xl sm:rounded-lg 2xl:rounded-2xl">
+                <div className="w-12 sm:w-14 2xl:w-16 h-12 sm:h-14 2xl:h-16 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-5 sm:w-6 2xl:w-7 h-5 sm:h-6 2xl:h-7 text-gold" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm text-primary-foreground/60 mb-0.5 sm:mb-1">מיקום</p>
-                  <p className="text-lg sm:text-xl font-bold text-primary-foreground">ישראל</p>
+                  <p className="text-xs sm:text-sm 2xl:text-base text-primary-foreground/60 mb-0.5 sm:mb-1">מיקום</p>
+                  <p className="text-lg sm:text-xl 2xl:text-2xl font-bold text-primary-foreground">ישראל</p>
                 </div>
               </div>
             </div>
@@ -399,52 +399,55 @@ const Index = () => {
             {/* Contact Form */}
             <div className="relative order-1 lg:order-2">
               {/* Subtle corner glows */}
-              <div className="absolute -top-3 -right-3 w-20 h-20 bg-gold/8 rounded-full blur-xl" />
-              <div className="absolute -bottom-3 -left-3 w-16 h-16 bg-gold/6 rounded-full blur-lg" />
+              <div className="absolute -top-3 -right-3 w-20 2xl:w-24 h-20 2xl:h-24 bg-gold/8 rounded-full blur-xl" />
+              <div className="absolute -bottom-3 -left-3 w-16 2xl:w-20 h-16 2xl:h-20 bg-gold/6 rounded-full blur-lg" />
 
-              <div className="relative border border-gold/25 rounded-2xl p-5 sm:p-8">
+              <div className="relative border border-gold/25 rounded-2xl 2xl:rounded-3xl p-5 sm:p-8 2xl:p-10">
                 {/* Centered top accent line on the border */}
                 <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
 
-                <h4 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-4 sm:mb-6 text-center lg:text-right">השאר פרטים</h4>
+                <h4 className="text-xl sm:text-2xl 2xl:text-3xl font-bold text-primary-foreground mb-4 sm:mb-6 2xl:mb-8 text-center lg:text-right">השאר פרטים</h4>
 
                 {isSubmitted ? (
-                  <div className="text-center py-8 sm:py-12">
-                    <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-green-900/30 border border-green-500/30 flex items-center justify-center mx-auto mb-4 sm:mb-6 animate-scale-in">
-                      <CheckCircle2 className="w-8 sm:w-10 h-8 sm:h-10 text-green-400" />
+                  <div className="text-center py-8 sm:py-12 2xl:py-16">
+                    <div className="w-16 sm:w-20 2xl:w-24 h-16 sm:h-20 2xl:h-24 rounded-full bg-primary-foreground/10 border border-primary-foreground/20 flex items-center justify-center mx-auto mb-4 sm:mb-6 2xl:mb-8 animate-scale-in">
+                      <CheckCircle2 className="w-8 sm:w-10 2xl:w-12 h-8 sm:h-10 2xl:h-12 text-primary-foreground/60" />
                     </div>
-                    <h5 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-2 sm:mb-3">תודה רבה!</h5>
-                    <p className="text-sm sm:text-base text-primary-foreground/60 mb-4 sm:mb-6">הפרטים נשלחו בהצלחה. נחזור אליך בקרוב.</p>
-                    <Button onClick={() => setIsSubmitted(false)} variant="outline" className="h-11 sm:h-10 border-blue-400/40 text-blue-400 hover:bg-blue-400/10">
+                    <h5 className="text-xl sm:text-2xl 2xl:text-3xl font-bold text-primary-foreground mb-2 sm:mb-3 2xl:mb-4">תודה רבה!</h5>
+                    <p className="text-sm sm:text-base 2xl:text-lg text-primary-foreground/60 mb-4 sm:mb-6 2xl:mb-8">הפרטים נשלחו בהצלחה. נחזור אליך בקרוב.</p>
+                    <Button
+                      onClick={() => setIsSubmitted(false)}
+                      className="h-11 sm:h-10 2xl:h-12 2xl:text-base bg-navy-light/50 border-2 border-gold/40 text-gold font-semibold hover:bg-navy-light hover:border-gold transition-all duration-300 active:scale-[0.98]"
+                    >
                       שלח פרטים נוספים
                     </Button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 2xl:space-y-6">
                     <div>
-                      <Label htmlFor="name" className="text-primary-foreground font-semibold text-sm">שם מלא</Label>
+                      <Label htmlFor="name" className="text-primary-foreground font-semibold text-sm 2xl:text-base">שם מלא</Label>
                       <Input
                         id="name"
                         name="name"
                         type="text"
                         placeholder="הכנס את שמך המלא"
                         required
-                        className="mt-1.5 sm:mt-2 h-12 bg-transparent border-primary-foreground/20 hover:border-gold/40 focus-visible:ring-0 focus-visible:border-gold text-primary-foreground placeholder:text-primary-foreground/40 transition-colors"
+                        className="mt-1.5 sm:mt-2 h-12 2xl:h-14 2xl:text-base bg-transparent border-primary-foreground/20 hover:border-gold/40 focus-visible:ring-0 focus-visible:border-gold text-primary-foreground placeholder:text-primary-foreground/40 transition-colors"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="email" className="text-primary-foreground font-semibold text-sm">דוא"ל</Label>
+                      <Label htmlFor="email" className="text-primary-foreground font-semibold text-sm 2xl:text-base">דוא"ל</Label>
                       <Input
                         id="email"
                         name="email"
                         type="email"
                         placeholder='הכנס את כתובת הדוא"ל שלך'
                         required
-                        className="mt-1.5 sm:mt-2 h-12 bg-transparent border-primary-foreground/20 hover:border-gold/40 focus-visible:ring-0 focus-visible:border-gold text-primary-foreground placeholder:text-primary-foreground/40 transition-colors"
+                        className="mt-1.5 sm:mt-2 h-12 2xl:h-14 2xl:text-base bg-transparent border-primary-foreground/20 hover:border-gold/40 focus-visible:ring-0 focus-visible:border-gold text-primary-foreground placeholder:text-primary-foreground/40 transition-colors"
                       />
                     </div>
                     <div>
-                      <Label htmlFor="phone" className="text-primary-foreground font-semibold text-sm">טלפון</Label>
+                      <Label htmlFor="phone" className="text-primary-foreground font-semibold text-sm 2xl:text-base">טלפון</Label>
                       <Input
                         id="phone"
                         name="phone"
@@ -452,18 +455,18 @@ const Index = () => {
                         placeholder="הכנס את מספר הטלפון שלך"
                         required
                         dir="rtl"
-                        className="mt-1.5 sm:mt-2 h-12 bg-transparent border-primary-foreground/20 hover:border-gold/40 focus-visible:ring-0 focus-visible:border-gold text-primary-foreground placeholder:text-primary-foreground/40 placeholder:text-right transition-colors"
+                        className="mt-1.5 sm:mt-2 h-12 2xl:h-14 2xl:text-base bg-transparent border-primary-foreground/20 hover:border-gold/40 focus-visible:ring-0 focus-visible:border-gold text-primary-foreground placeholder:text-primary-foreground/40 placeholder:text-right transition-colors"
                       />
                     </div>
                     <Button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full h-12 bg-gold hover:bg-gold-light text-navy font-bold text-base sm:text-lg transition-all duration-300 hover:shadow-gold active:scale-[0.98] rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="w-full h-12 2xl:h-14 bg-gold hover:bg-gold-light text-navy font-bold text-base sm:text-lg 2xl:text-xl transition-all duration-300 hover:shadow-gold active:scale-[0.98] rounded-xl disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                       {isLoading ? "שולח..." : "שלח פרטים"}
                     </Button>
-                    <p className="text-[11px] sm:text-xs text-primary-foreground/40 text-center flex items-center justify-center gap-1.5">
-                      <Shield className="w-3 h-3" />
+                    <p className="text-[11px] sm:text-xs 2xl:text-sm text-primary-foreground/40 text-center flex items-center justify-center gap-1.5">
+                      <Shield className="w-3 h-3 2xl:w-4 2xl:h-4" />
                       המידע שלך מאובטח ולא יועבר לצד שלישי
                     </p>
                   </form>
@@ -475,15 +478,24 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-navy py-8 sm:py-12 relative">
+      <footer className="bg-navy py-8 sm:py-12 2xl:py-16 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between">
-            <div className="flex items-center gap-3">
-              <img src="./favicon.ico" alt="Logo" className="w-8 sm:w-10 h-8 sm:h-10 opacity-80" />
-              <span className="text-gold-light font-medium text-sm sm:text-base tracking-wider">החזר מס</span>
-            </div>
-            <p className="text-primary-foreground/50 text-xs sm:text-sm text-center">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8">
+          <div className="flex flex-col items-center gap-4 sm:gap-6 2xl:gap-8 md:flex-row md:justify-between">
+            <NavLink
+              to="/"
+              onClick={(e) => {
+                if (window.location.pathname === '/') {
+                  e.preventDefault();
+                  window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+              }}
+              className="flex items-center gap-3 2xl:gap-4 hover:opacity-80 transition-opacity"
+            >
+              <img src="./favicon.ico" alt="Logo" className="w-8 sm:w-10 2xl:w-12 h-8 sm:h-10 2xl:h-12 opacity-80" />
+              <span className="text-gold-light font-medium text-sm sm:text-base 2xl:text-lg tracking-wider">החזר מס</span>
+            </NavLink>
+            <p className="text-primary-foreground/50 text-xs sm:text-sm 2xl:text-base text-center">
               © {currentYear} EY CPA. כל הזכויות שמורות.
             </p>
           </div>
@@ -491,14 +503,14 @@ const Index = () => {
       </footer>
 
       {/* Floating CTA - Mobile Only */}
-      <div className={`fixed bottom-0 left-0 right-0 z-40 p-4 bg-gradient-to-t from-navy via-navy/95 to-transparent md:hidden transition-all duration-300 ${
+      <div className={`fixed bottom-0 left-0 right-0 z-40 p-4 2xl:p-6 bg-gradient-to-t from-navy via-navy/95 to-transparent md:hidden transition-all duration-300 ${
         scrolled ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
       }`}>
         <a
           href="tel:+972549452800"
-          className="flex items-center justify-center gap-3 max-w-sm mx-auto py-4 bg-gold text-navy font-bold text-lg rounded-xl shadow-gold active:scale-[0.98] transition-transform"
+          className="flex items-center justify-center gap-3 2xl:gap-4 max-w-sm mx-auto py-4 2xl:py-5 bg-gold text-navy font-bold text-lg 2xl:text-xl rounded-xl shadow-gold active:scale-[0.98] transition-transform"
         >
-          <Phone className="w-5 h-5" />
+          <Phone className="w-5 h-5 2xl:w-6 2xl:h-6" />
           <span>התקשר עכשיו</span>
         </a>
       </div>

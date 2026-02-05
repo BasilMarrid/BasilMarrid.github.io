@@ -91,35 +91,35 @@ const AboutHe = () => {
       <header className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-primary/98 backdrop-blur-md shadow-lg" : "bg-primary/95 backdrop-blur-sm"
       } border-b border-gold/20`}>
-        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8 py-3 sm:py-4 2xl:py-6">
           <div className="flex items-center justify-between">
-            <NavLink to="/" className="flex items-center gap-3 sm:gap-4">
+            <NavLink to="/" className="flex items-center gap-3 sm:gap-4 2xl:gap-5">
               <div className="relative">
-                <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl" />
-                <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14" />
+                <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl 2xl:blur-2xl" />
+                <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14 2xl:w-16 2xl:h-16" />
               </div>
-              <p className="text-sm sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
+              <p className="text-sm sm:text-lg 2xl:text-xl font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
             </NavLink>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-6 2xl:gap-8">
               <NavLink
                 to="/"
-                className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-gold hover:text-gold-light transition-colors"
               >
                 <span className="relative z-10">ראשי</span>
                 <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
               </NavLink>
               <NavLink
                 to="/about"
-                className="group relative px-4 py-2 text-sm font-semibold text-gold hover:text-gold-light transition-colors"
+                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-gold hover:text-gold-light transition-colors"
               >
                 <span className="relative z-10">מי אנחנו?</span>
                 <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
               </NavLink>
               <NavLink
                 to="/#contact"
-                className="px-5 py-2.5 bg-gold hover:bg-gold-light text-navy font-bold text-sm rounded transition-all duration-300 hover:shadow-gold"
+                className="px-5 py-2.5 2xl:px-6 2xl:py-3 bg-gold hover:bg-gold-light text-navy font-bold text-sm 2xl:text-base rounded transition-all duration-300 hover:shadow-gold"
               >
                 צור קשר
               </NavLink>
@@ -184,36 +184,36 @@ const AboutHe = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-24 sm:pt-32 pb-16 sm:pb-24 bg-gradient-hero overflow-hidden">
+      <section className="relative pt-24 sm:pt-32 2xl:pt-40 pb-16 sm:pb-24 2xl:pb-32 bg-gradient-hero overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute inset-0 noise-overlay" />
-        <div className="absolute top-20 left-10 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-20 w-96 h-96 bg-gold/10 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-10 2xl:left-16 w-64 2xl:w-80 h-64 2xl:h-80 bg-gold/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 right-20 2xl:right-32 w-96 2xl:w-[500px] h-96 2xl:h-[500px] bg-gold/10 rounded-full blur-3xl" />
 
         {/* Geometric Lines */}
         <div className="absolute top-1/3 left-0 w-1/4 h-px bg-gradient-to-r from-gold/40 to-transparent" />
         <div className="absolute bottom-1/4 right-0 w-1/3 h-px bg-gradient-to-l from-gold/40 to-transparent" />
 
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8 relative z-10">
+          <div className="max-w-4xl 2xl:max-w-5xl mx-auto text-center">
             {/* Overline */}
-            <div className="flex items-center justify-center gap-3 mb-6 opacity-0-initial animate-fade-in-up">
-              <div className="h-px w-12 bg-gold" />
-              <span className="text-gold font-semibold tracking-[0.2em] uppercase text-xs sm:text-sm">
+            <div className="flex items-center justify-center gap-3 2xl:gap-4 mb-6 2xl:mb-8 opacity-0-initial animate-fade-in-up">
+              <div className="h-px w-12 2xl:w-16 bg-gold" />
+              <span className="text-gold font-semibold tracking-[0.2em] uppercase text-xs sm:text-sm 2xl:text-base">
                 הצוות שלנו
               </span>
-              <div className="h-px w-12 bg-gold" />
+              <div className="h-px w-12 2xl:w-16 bg-gold" />
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-primary-foreground leading-tight mb-6 opacity-0-initial animate-fade-in-up delay-100">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl font-black text-primary-foreground leading-tight mb-6 2xl:mb-8 opacity-0-initial animate-fade-in-up delay-100">
               מקצועיות.<br />
               <span className="text-gradient-gold">מחויבות.</span><br />
               מצוינות.
             </h1>
 
             {/* Subheadline */}
-            <p className="text-lg sm:text-xl text-primary-foreground/70 max-w-2xl mx-auto leading-relaxed opacity-0-initial animate-fade-in-up delay-200">
+            <p className="text-lg sm:text-xl 2xl:text-2xl text-primary-foreground/70 max-w-2xl 2xl:max-w-3xl mx-auto leading-relaxed opacity-0-initial animate-fade-in-up delay-200">
               [כאן יבוא תיאור קצר של המשרד - הפילוסופיה, הגישה לעבודה, והמחויבות ללקוחות.
               משפט או שניים שמבטאים את הערכים המרכזיים של הצוות.]
             </p>
@@ -237,17 +237,17 @@ const AboutHe = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 sm:py-24 bg-geometric relative">
-        <div className="container mx-auto px-4 sm:px-6">
+      <section className="py-16 sm:py-24 2xl:py-32 bg-geometric relative">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8">
           {team.map((member, index) => (
             <article
               key={member.nameEn}
               id={`member-${index}`}
               ref={setRef(`member-${index}`)}
-              className={`${index > 0 ? "mt-24 sm:mt-32 pt-16 sm:pt-20 border-t border-border" : ""}`}
+              className={`${index > 0 ? "mt-24 sm:mt-32 2xl:mt-40 pt-16 sm:pt-20 2xl:pt-24 border-t border-border" : ""}`}
             >
               <div
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start ${
+                className={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 2xl:gap-16 items-start ${
                   isVisible[`member-${index}`]
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-12"
@@ -259,10 +259,10 @@ const AboutHe = () => {
                     index % 2 === 1 ? "lg:order-2" : ""
                   }`}
                 >
-                  <div className="relative group max-w-[280px] sm:max-w-[320px] mx-auto lg:mx-0">
+                  <div className="relative group max-w-[280px] sm:max-w-[320px] 2xl:max-w-[380px] mx-auto lg:mx-0">
                     {/* Gold frame effect */}
-                    <div className="absolute -inset-2 sm:-inset-3 border-2 border-gold/30 rounded-lg transform rotate-2 group-hover:rotate-0 transition-transform duration-500" />
-                    <div className="absolute -inset-2 sm:-inset-3 border-2 border-gold/20 rounded-lg transform -rotate-1 group-hover:rotate-0 transition-transform duration-500" />
+                    <div className="absolute -inset-2 sm:-inset-3 2xl:-inset-4 border-2 border-gold/30 rounded-lg transform rotate-2 group-hover:rotate-0 transition-transform duration-500" />
+                    <div className="absolute -inset-2 sm:-inset-3 2xl:-inset-4 border-2 border-gold/20 rounded-lg transform -rotate-1 group-hover:rotate-0 transition-transform duration-500" />
 
                     {/* Image container */}
                     <div className="relative overflow-hidden rounded-lg shadow-elegant">
@@ -279,9 +279,9 @@ const AboutHe = () => {
                     </div>
 
                     {/* Floating name tag */}
-                    <div className="absolute -bottom-3 sm:-bottom-4 right-3 sm:right-4 left-3 sm:left-4 bg-card p-3 sm:p-4 rounded-lg shadow-elegant border border-border">
-                      <h3 className="text-lg sm:text-xl font-black text-foreground">{member.name}</h3>
-                      <p className="text-gold font-semibold text-xs sm:text-sm mt-0.5">{member.title}</p>
+                    <div className="absolute -bottom-3 sm:-bottom-4 2xl:-bottom-5 right-3 sm:right-4 2xl:right-5 left-3 sm:left-4 2xl:left-5 bg-card p-3 sm:p-4 2xl:p-5 rounded-lg shadow-elegant border border-border">
+                      <h3 className="text-lg sm:text-xl 2xl:text-2xl font-black text-foreground">{member.name}</h3>
+                      <p className="text-gold font-semibold text-xs sm:text-sm 2xl:text-base mt-0.5">{member.title}</p>
                     </div>
                   </div>
                 </div>
@@ -289,52 +289,52 @@ const AboutHe = () => {
                 {/* Content Column */}
                 <div
                   className={`lg:col-span-8 pt-12 sm:pt-0 ${
-                    index % 2 === 1 ? "lg:order-1 lg:pl-6" : "lg:pr-6"
+                    index % 2 === 1 ? "lg:order-1 lg:pl-6 2xl:pl-8" : "lg:pr-6 2xl:pr-8"
                   }`}
                 >
                   {/* Section number */}
-                  <div className="flex items-center gap-4 mb-6 sm:mb-8">
-                    <span className="text-6xl sm:text-8xl font-black text-gold/10">
+                  <div className="flex items-center gap-4 2xl:gap-6 mb-6 sm:mb-8 2xl:mb-10">
+                    <span className="text-6xl sm:text-8xl 2xl:text-9xl font-black text-gold/10">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div className="h-px flex-1 bg-gradient-to-l from-gold/30 to-transparent" />
                   </div>
 
                   {/* Credentials */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 2xl:gap-5 mb-6 sm:mb-8 2xl:mb-10">
                     {member.credentials.map((cred, credIndex) => (
                       <div
                         key={credIndex}
-                        className="flex items-center gap-3 p-3 sm:p-4 bg-muted/50 rounded-lg border border-border"
+                        className="flex items-center gap-3 2xl:gap-4 p-3 sm:p-4 2xl:p-5 bg-muted/50 rounded-lg border border-border"
                       >
-                        <cred.icon className="w-5 h-5 text-gold flex-shrink-0" />
-                        <span className="text-sm text-foreground font-medium">{cred.text}</span>
+                        <cred.icon className="w-5 h-5 2xl:w-6 2xl:h-6 text-gold flex-shrink-0" />
+                        <span className="text-sm 2xl:text-base text-foreground font-medium">{cred.text}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Bio */}
-                  <div className="mb-6 sm:mb-8">
-                    <h4 className="text-lg font-bold text-foreground mb-3 flex items-center gap-2">
-                      <div className="w-1 h-6 bg-gold rounded-full" />
+                  <div className="mb-6 sm:mb-8 2xl:mb-10">
+                    <h4 className="text-lg 2xl:text-xl font-bold text-foreground mb-3 2xl:mb-4 flex items-center gap-2">
+                      <div className="w-1 h-6 2xl:h-7 bg-gold rounded-full" />
                       אודות
                     </h4>
-                    <p className="text-muted-foreground leading-relaxed text-base sm:text-lg">
+                    <p className="text-muted-foreground leading-relaxed text-base sm:text-lg 2xl:text-xl">
                       {member.bio}
                     </p>
                   </div>
 
                   {/* Specialties */}
-                  <div className="mb-6 sm:mb-8">
-                    <h4 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-                      <div className="w-1 h-6 bg-gold rounded-full" />
+                  <div className="mb-6 sm:mb-8 2xl:mb-10">
+                    <h4 className="text-lg 2xl:text-xl font-bold text-foreground mb-4 2xl:mb-5 flex items-center gap-2">
+                      <div className="w-1 h-6 2xl:h-7 bg-gold rounded-full" />
                       תחומי התמחות
                     </h4>
-                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                    <div className="flex flex-wrap gap-2 sm:gap-3 2xl:gap-4">
                       {member.specialties.map((specialty, specIndex) => (
                         <span
                           key={specIndex}
-                          className="px-4 py-2 bg-gold/10 text-gold font-semibold text-sm rounded-full border border-gold/20 hover:bg-gold/20 transition-colors"
+                          className="px-4 py-2 2xl:px-5 2xl:py-2.5 bg-gold/10 text-gold font-semibold text-sm 2xl:text-base rounded-full border border-gold/20 hover:bg-gold/20 transition-colors"
                         >
                           {specialty}
                         </span>
@@ -343,24 +343,24 @@ const AboutHe = () => {
                   </div>
 
                   {/* Contact */}
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 2xl:gap-5">
                     <a
                       href={`mailto:${member.email}`}
-                      className="group flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-lg hover:border-gold/50 hover:shadow-elegant transition-all duration-300"
+                      className="group flex items-center gap-3 2xl:gap-4 px-5 py-3 2xl:px-6 2xl:py-4 bg-card border border-border rounded-lg hover:border-gold/50 hover:shadow-elegant transition-all duration-300"
                     >
-                      <Mail className="w-5 h-5 text-gold" />
-                      <span className="text-foreground font-medium text-sm">{member.email}</span>
-                      <ChevronLeft className="w-4 h-4 text-muted-foreground mr-auto group-hover:-translate-x-1 transition-transform" />
+                      <Mail className="w-5 h-5 2xl:w-6 2xl:h-6 text-gold" />
+                      <span className="text-foreground font-medium text-sm 2xl:text-base">{member.email}</span>
+                      <ChevronLeft className="w-4 h-4 2xl:w-5 2xl:h-5 text-muted-foreground mr-auto group-hover:-translate-x-1 transition-transform" />
                     </a>
                     <a
                       href={`tel:${member.phone}`}
-                      className="group flex items-center gap-3 px-5 py-3 bg-card border border-border rounded-lg hover:border-gold/50 hover:shadow-elegant transition-all duration-300"
+                      className="group flex items-center gap-3 2xl:gap-4 px-5 py-3 2xl:px-6 2xl:py-4 bg-card border border-border rounded-lg hover:border-gold/50 hover:shadow-elegant transition-all duration-300"
                     >
-                      <Phone className="w-5 h-5 text-gold" />
-                      <span className="text-foreground font-medium text-sm" dir="ltr">
+                      <Phone className="w-5 h-5 2xl:w-6 2xl:h-6 text-gold" />
+                      <span className="text-foreground font-medium text-sm 2xl:text-base" dir="ltr">
                         {member.phone}
                       </span>
-                      <ChevronLeft className="w-4 h-4 text-muted-foreground mr-auto group-hover:-translate-x-1 transition-transform" />
+                      <ChevronLeft className="w-4 h-4 2xl:w-5 2xl:h-5 text-muted-foreground mr-auto group-hover:-translate-x-1 transition-transform" />
                     </a>
                   </div>
                 </div>
@@ -374,32 +374,32 @@ const AboutHe = () => {
       <section
         id="values"
         ref={setRef("values")}
-        className="py-16 sm:py-24 bg-primary relative overflow-hidden"
+        className="py-16 sm:py-24 2xl:py-32 bg-primary relative overflow-hidden"
       >
         {/* Decorative */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-        <div className="absolute top-20 right-10 w-64 h-64 bg-gold/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-10 w-48 h-48 bg-gold/10 rounded-full blur-3xl" />
+        <div className="absolute top-20 right-10 2xl:right-16 w-64 2xl:w-80 h-64 2xl:h-80 bg-gold/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-10 2xl:left-16 w-48 2xl:w-64 h-48 2xl:h-64 bg-gold/10 rounded-full blur-3xl" />
 
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8 relative z-10">
           <div
-            className={`text-center mb-12 sm:mb-16 ${
+            className={`text-center mb-12 sm:mb-16 2xl:mb-20 ${
               isVisible.values ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             } transition-all duration-700`}
           >
-            <span className="inline-block px-4 py-1.5 bg-gold/20 text-gold font-semibold text-sm rounded-full mb-6">
+            <span className="inline-block px-4 py-1.5 2xl:px-5 2xl:py-2 bg-gold/20 text-gold font-semibold text-sm 2xl:text-base rounded-full mb-6 2xl:mb-8">
               הערכים שלנו
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-primary-foreground mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl 2xl:text-6xl font-black text-primary-foreground mb-6 2xl:mb-8">
               למה <span className="text-gradient-gold">לבחור בנו</span>?
             </h2>
-            <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto">
+            <p className="text-lg 2xl:text-xl text-primary-foreground/70 max-w-2xl 2xl:max-w-3xl mx-auto">
               [כאן יבוא תיאור קצר שמסביר את היתרונות הייחודיים של המשרד]
             </p>
           </div>
 
           <div
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto ${
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 2xl:gap-10 max-w-5xl 2xl:max-w-7xl mx-auto ${
               isVisible.values ? "opacity-100" : "opacity-0"
             } transition-all duration-700 delay-200`}
           >
@@ -422,21 +422,21 @@ const AboutHe = () => {
             ].map((value, index) => (
               <div
                 key={value.number}
-                className="group relative p-6 sm:p-8 bg-navy-light/20 border border-primary-foreground/10 rounded-lg hover:border-gold/30 transition-all duration-500"
+                className="group relative p-6 sm:p-8 2xl:p-10 bg-navy-light/20 border border-primary-foreground/10 rounded-lg 2xl:rounded-2xl hover:border-gold/30 transition-all duration-500"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <span className="text-5xl sm:text-6xl font-black text-gold/20 absolute top-4 left-4">
+                <span className="text-5xl sm:text-6xl 2xl:text-7xl font-black text-gold/20 absolute top-4 2xl:top-6 left-4 2xl:left-6">
                   {value.number}
                 </span>
-                <div className="relative pt-8">
-                  <h3 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-3">
+                <div className="relative pt-8 2xl:pt-10">
+                  <h3 className="text-xl sm:text-2xl 2xl:text-3xl font-bold text-primary-foreground mb-3 2xl:mb-4">
                     {value.title}
                   </h3>
-                  <p className="text-primary-foreground/70 leading-relaxed">
+                  <p className="text-primary-foreground/70 leading-relaxed text-base 2xl:text-lg">
                     {value.description}
                   </p>
                 </div>
-                <div className="absolute bottom-0 right-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500 rounded-br-lg" />
+                <div className="absolute bottom-0 right-0 h-1 w-0 bg-gold group-hover:w-full transition-all duration-500 rounded-br-lg 2xl:rounded-br-2xl" />
               </div>
             ))}
           </div>
@@ -444,38 +444,47 @@ const AboutHe = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 sm:py-20 bg-background relative">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-black text-foreground mb-6">
+      <section className="py-16 sm:py-20 2xl:py-28 bg-background relative">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8">
+          <div className="max-w-3xl 2xl:max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl 2xl:text-5xl font-black text-foreground mb-6 2xl:mb-8">
               מוכנים להתחיל?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg 2xl:text-xl text-muted-foreground mb-8 2xl:mb-10">
               צרו קשר עוד היום לפגישת ייעוץ ראשונית ללא התחייבות
             </p>
             <NavLink
               to="/#contact"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gold hover:bg-gold-light text-navy font-bold text-lg rounded-lg transition-all duration-300 hover:shadow-gold"
+              className="inline-flex items-center gap-3 2xl:gap-4 px-8 py-4 2xl:px-10 2xl:py-5 bg-gold hover:bg-gold-light text-navy font-bold text-lg 2xl:text-xl rounded-lg transition-all duration-300 hover:shadow-gold"
             >
               <span>צור קשר</span>
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 2xl:w-6 2xl:h-6" />
             </NavLink>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-navy py-8 sm:py-12 relative">
+      <footer className="bg-navy py-8 sm:py-12 2xl:py-16 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col items-center gap-4 sm:gap-6 md:flex-row md:justify-between">
-            <div className="flex items-center gap-3">
-              <img src="./favicon.ico" alt="Logo" className="w-8 sm:w-10 h-8 sm:h-10 opacity-80" />
-              <span className="text-gold-light font-medium text-sm sm:text-base tracking-wider">
+        <div className="container mx-auto px-4 sm:px-6 2xl:px-8">
+          <div className="flex flex-col items-center gap-4 sm:gap-6 2xl:gap-8 md:flex-row md:justify-between">
+            <NavLink
+              to="/"
+              onClick={(e) => {
+                if (window.location.pathname === '/') {
+                  e.preventDefault();
+                  window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+              }}
+              className="flex items-center gap-3 2xl:gap-4 hover:opacity-80 transition-opacity"
+            >
+              <img src="./favicon.ico" alt="Logo" className="w-8 sm:w-10 2xl:w-12 h-8 sm:h-10 2xl:h-12 opacity-80" />
+              <span className="text-gold-light font-medium text-sm sm:text-base 2xl:text-lg tracking-wider">
                 החזר מס
               </span>
-            </div>
-            <p className="text-primary-foreground/50 text-xs sm:text-sm text-center">
+            </NavLink>
+            <p className="text-primary-foreground/50 text-xs sm:text-sm 2xl:text-base text-center">
               © {new Date().getFullYear()} EY CPA. כל הזכויות שמורות.
             </p>
           </div>
