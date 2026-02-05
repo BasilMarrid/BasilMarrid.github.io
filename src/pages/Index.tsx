@@ -99,7 +99,6 @@ const Index = () => {
                 <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl" />
                 <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14" />
               </div>
-              <p className="text-sm sm:text-lg font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
             </NavLink>
 
             {/* Desktop Nav */}
@@ -217,7 +216,7 @@ const Index = () => {
             </p>
 
             {/* CTA Buttons - stacked on mobile */}
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 opacity-0-initial animate-fade-in-up delay-300">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto sm:mx-0 opacity-0-initial animate-fade-in-up delay-300">
               <a
                 href="#contact"
                 className="group relative inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-4 bg-gold text-navy font-bold text-base sm:text-lg rounded-xl sm:rounded overflow-hidden transition-all duration-300 hover:shadow-gold active:scale-[0.98]"
@@ -497,7 +496,7 @@ const Index = () => {
       }`}>
         <a
           href="tel:+972549452800"
-          className="flex items-center justify-center gap-3 w-full py-4 bg-gold text-navy font-bold text-lg rounded-xl shadow-gold active:scale-[0.98] transition-transform"
+          className="flex items-center justify-center gap-3 max-w-sm mx-auto py-4 bg-gold text-navy font-bold text-lg rounded-xl shadow-gold active:scale-[0.98] transition-transform"
         >
           <Phone className="w-5 h-5" />
           <span>התקשר עכשיו</span>

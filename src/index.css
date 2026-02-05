@@ -8,58 +8,58 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Professional Navy & Gold palette */
-    --background: 210 20% 98%;
-    --foreground: 215 50% 15%;
+    /* EY Black & Gold palette */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 50% 15%;
+    --card-foreground: 0 0% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 50% 15%;
+    --popover-foreground: 0 0% 10%;
 
-    /* Deep Navy Primary */
-    --primary: 215 60% 22%;
-    --primary-foreground: 45 100% 96%;
+    /* Pure Black Primary (EY Brand) */
+    --primary: 0 0% 8%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Light cream secondary */
-    --secondary: 45 30% 95%;
-    --secondary-foreground: 215 50% 15%;
+    /* Light gray secondary */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
 
-    --muted: 210 20% 94%;
-    --muted-foreground: 215 20% 45%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 45%;
 
-    /* Gold accent */
-    --accent: 38 80% 50%;
-    --accent-foreground: 215 60% 15%;
+    /* Darker Gold accent (EY Brand) */
+    --accent: 45 85% 40%;
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 210 25% 88%;
-    --input: 210 25% 88%;
-    --ring: 38 80% 50%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 45 85% 40%;
 
     --radius: 0.5rem;
 
-    /* Custom tokens */
-    --gold: 38 80% 50%;
-    --gold-light: 45 70% 65%;
-    --navy: 215 60% 22%;
-    --navy-light: 215 45% 35%;
+    /* Custom tokens - EY Brand Colors */
+    --gold: 45 85% 40%;
+    --gold-light: 45 85% 52%;
+    --navy: 0 0% 8%;
+    --navy-light: 0 0% 18%;
   }
 }
 
 @layer utilities {
   .text-gradient-gold {
-    background: linear-gradient(135deg, hsl(38 80% 50%), hsl(45 70% 65%));
+    background: linear-gradient(135deg, hsl(45 85% 40%), hsl(45 85% 52%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .bg-gradient-hero {
-    background: linear-gradient(135deg, hsl(215 60% 22%) 0%, hsl(215 45% 30%) 100%);
+    background: linear-gradient(135deg, hsl(0 0% 8%) 0%, hsl(0 0% 12%) 100%);
   }
 
   .bg-gradient-subtle {
@@ -67,22 +67,22 @@ All colors MUST be HSL.
   }
 
   .shadow-elegant {
-    box-shadow: 0 4px 20px -4px hsl(215 60% 22% / 0.15);
+    box-shadow: 0 4px 20px -4px hsl(0 0% 8% / 0.15);
   }
 
   .shadow-gold {
-    box-shadow: 0 4px 20px -4px hsl(38 80% 50% / 0.3);
+    box-shadow: 0 4px 20px -4px hsl(45 85% 40% / 0.3);
   }
 
   /* Geometric pattern background */
   .bg-geometric {
     background-image:
-      linear-gradient(30deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
-      linear-gradient(150deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
-      linear-gradient(30deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
-      linear-gradient(150deg, hsl(38 80% 50% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(38 80% 50% / 0.03) 87.5%, hsl(38 80% 50% / 0.03)),
-      linear-gradient(60deg, hsl(215 60% 22% / 0.02) 25%, transparent 25.5%, transparent 75%, hsl(215 60% 22% / 0.02) 75%, hsl(215 60% 22% / 0.02)),
-      linear-gradient(60deg, hsl(215 60% 22% / 0.02) 25%, transparent 25.5%, transparent 75%, hsl(215 60% 22% / 0.02) 75%, hsl(215 60% 22% / 0.02));
+      linear-gradient(30deg, hsl(45 85% 40% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(45 85% 40% / 0.03) 87.5%, hsl(45 85% 40% / 0.03)),
+      linear-gradient(150deg, hsl(45 85% 40% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(45 85% 40% / 0.03) 87.5%, hsl(45 85% 40% / 0.03)),
+      linear-gradient(30deg, hsl(45 85% 40% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(45 85% 40% / 0.03) 87.5%, hsl(45 85% 40% / 0.03)),
+      linear-gradient(150deg, hsl(45 85% 40% / 0.03) 12%, transparent 12.5%, transparent 87%, hsl(45 85% 40% / 0.03) 87.5%, hsl(45 85% 40% / 0.03)),
+      linear-gradient(60deg, hsl(0 0% 8% / 0.02) 25%, transparent 25.5%, transparent 75%, hsl(0 0% 8% / 0.02) 75%, hsl(0 0% 8% / 0.02)),
+      linear-gradient(60deg, hsl(0 0% 8% / 0.02) 25%, transparent 25.5%, transparent 75%, hsl(0 0% 8% / 0.02) 75%, hsl(0 0% 8% / 0.02));
     background-size: 80px 140px;
     background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
   }
@@ -179,10 +179,10 @@ All colors MUST be HSL.
 
 @keyframes pulse-gold {
   0%, 100% {
-    box-shadow: 0 0 0 0 hsl(38 80% 50% / 0.4);
+    box-shadow: 0 0 0 0 hsl(45 85% 40% / 0.4);
   }
   50% {
-    box-shadow: 0 0 0 15px hsl(38 80% 50% / 0);
+    box-shadow: 0 0 0 15px hsl(45 85% 40% / 0);
   }
 }
 
@@ -192,6 +192,15 @@ All colors MUST be HSL.
   }
   to {
     width: 100%;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -210,9 +219,9 @@ All colors MUST be HSL.
 .animate-shimmer {
   background: linear-gradient(
     90deg,
-    hsl(38 80% 50% / 0) 0%,
-    hsl(38 80% 50% / 0.3) 50%,
-    hsl(38 80% 50% / 0) 100%
+    hsl(45 85% 40% / 0) 0%,
+    hsl(45 85% 40% / 0.3) 50%,
+    hsl(45 85% 40% / 0) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
@@ -228,6 +237,10 @@ All colors MUST be HSL.
 
 .animate-draw-line {
   animation: draw-line 1s ease-out forwards;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
 }
 
 /* Animation delays */
