@@ -105,21 +105,21 @@ const AboutHe = () => {
             <nav className="hidden md:flex items-center gap-6 2xl:gap-8">
               <NavLink
                 to="/"
-                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-gold hover:text-gold-light transition-colors"
+                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-primary-foreground hover:text-gold transition-colors"
               >
                 <span className="relative z-10">ראשי</span>
                 <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
               </NavLink>
               <NavLink
                 to="/about"
-                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-gold hover:text-gold-light transition-colors"
+                className="group relative px-4 py-2 2xl:px-5 2xl:py-3 text-sm 2xl:text-base font-semibold text-primary-foreground hover:text-gold transition-colors"
               >
                 <span className="relative z-10">מי אנחנו?</span>
                 <span className="absolute bottom-0 right-0 h-0.5 w-0 bg-gold group-hover:w-full transition-all duration-300" />
               </NavLink>
               <NavLink
                 to="/#contact"
-                className="px-5 py-2.5 2xl:px-6 2xl:py-3 bg-gold hover:bg-gold-light text-navy font-bold text-sm 2xl:text-base rounded transition-all duration-300 hover:shadow-gold"
+                className="px-5 py-2.5 2xl:px-6 2xl:py-3 border border-primary-foreground/30 text-primary-foreground font-bold text-sm 2xl:text-base rounded hover:bg-primary-foreground hover:text-navy transition-all duration-300"
               >
                 צור קשר
               </NavLink>
@@ -128,7 +128,7 @@ const AboutHe = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 -ml-2 text-gold hover:text-gold-light transition-colors"
+              className="md:hidden p-2 -ml-2 text-primary-foreground hover:text-gold transition-colors"
               aria-label="תפריט"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
