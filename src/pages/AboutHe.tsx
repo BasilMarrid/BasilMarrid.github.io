@@ -169,17 +169,6 @@ const AboutHe = () => {
             </NavLink>
           </nav>
 
-          {/* Quick Contact in Mobile Menu */}
-          <div className="mt-8 pt-6 border-t border-primary-foreground/10">
-            <p className="text-sm text-primary-foreground/60 mb-4">התקשר עכשיו</p>
-            <a
-              href="tel:+972549452800"
-              className="flex items-center gap-4 p-4 bg-gold text-navy rounded-xl font-bold text-lg active:scale-[0.98] transition-transform"
-            >
-              <Phone className="w-6 h-6" />
-              <span dir="ltr">054-945-2800</span>
-            </a>
-          </div>
         </div>
       </div>
 
