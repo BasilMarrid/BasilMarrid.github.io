@@ -98,7 +98,6 @@ const AboutHe = () => {
                 <div className="absolute inset-0 bg-gold/20 rounded-full blur-xl 2xl:blur-2xl" />
                 <img src="./favicon.ico" alt="Logo" className="relative w-10 h-10 sm:w-14 sm:h-14 2xl:w-16 2xl:h-16" />
               </div>
-              <p className="text-sm sm:text-lg 2xl:text-xl font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-gold-light">החזר מס</p>
             </NavLink>
 
             {/* Desktop Nav */}
