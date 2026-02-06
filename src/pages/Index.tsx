@@ -491,18 +491,6 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* Floating CTA - Mobile Only */}
-      <div className={`fixed bottom-0 left-0 right-0 z-40 p-4 2xl:p-6 bg-gradient-to-t from-navy via-navy/95 to-transparent md:hidden transition-all duration-300 ${
-        scrolled ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
-      }`}>
-        <a
-          href="tel:+972549452800"
-          className="flex items-center justify-center gap-3 2xl:gap-4 max-w-sm mx-auto py-4 2xl:py-5 bg-gold text-navy font-bold text-lg 2xl:text-xl rounded-xl shadow-gold active:scale-[0.98] transition-transform"
-        >
-          <Phone className="w-5 h-5 2xl:w-6 2xl:h-6" />
-          <span>התקשר עכשיו</span>
-        </a>
-      </div>
     </div>
   );
 };
