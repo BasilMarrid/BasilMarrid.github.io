@@ -346,8 +346,6 @@ const Index = () => {
           <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 2xl:gap-16 max-w-5xl 2xl:max-w-7xl mx-auto ${isVisible.contact ? "opacity-100" : "opacity-0"} transition-all duration-700 delay-200`}>
             {/* Contact Info */}
             <div className="space-y-4 sm:space-y-6 2xl:space-y-8 order-2 lg:order-1">
-              <h4 className="text-xl sm:text-2xl 2xl:text-3xl font-bold text-primary-foreground mb-4 sm:mb-8 2xl:mb-10 text-center lg:text-right">פרטי התקשרות</h4>
-
               <a
                 href="tel:+972549452800"
                 className="group flex items-center gap-3 sm:gap-4 2xl:gap-5 p-4 sm:p-5 2xl:p-6 bg-navy-light/30 border border-primary-foreground/10 rounded-xl sm:rounded-lg 2xl:rounded-2xl hover:border-gold/50 hover:bg-navy-light/50 transition-all duration-300 active:scale-[0.98]"
@@ -503,24 +501,22 @@ const Index = () => {
               <img src="./favicon.ico" alt="Logo" className="w-8 sm:w-10 2xl:w-12 h-8 sm:h-10 2xl:h-12 opacity-80" />
               <span className="text-gold-light font-medium text-sm sm:text-base 2xl:text-lg tracking-wider">החזר מס</span>
             </NavLink>
-            <div className="flex items-center gap-4 sm:gap-6">
-              <a
-                href="https://www.instagram.com/eycpaoffice?igsh=OGF1amthbXh6Y3Y="
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 sm:w-10 2xl:w-11 h-9 sm:h-10 2xl:h-11 rounded-full border border-primary-foreground/20 flex items-center justify-center text-primary-foreground/50 hover:border-gold hover:text-gold transition-all duration-300"
-                aria-label="Instagram"
-              >
-                <svg className="w-4 sm:w-[18px] 2xl:w-5 h-4 sm:h-[18px] 2xl:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
-              </a>
-              <p className="text-primary-foreground/50 text-xs sm:text-sm 2xl:text-base text-center">
-                © {currentYear} EY CPA. כל הזכויות שמורות.
-              </p>
-            </div>
+            <a
+              href="https://www.instagram.com/eycpaoffice?igsh=OGF1amthbXh6Y3Y="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary-foreground/50 hover:text-gold transition-all duration-300"
+              aria-label="Instagram"
+            >
+              <svg className="w-5 sm:w-6 2xl:w-7 h-5 sm:h-6 2xl:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+            </a>
+            <p className="text-primary-foreground/50 text-xs sm:text-sm 2xl:text-base text-center">
+              © {currentYear} EY CPA. כל הזכויות שמורות.
+            </p>
           </div>
         </div>
       </footer>
