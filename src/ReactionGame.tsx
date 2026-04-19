@@ -17,6 +17,8 @@ type Phase = "idle" | "countdown" | "wait" | "go" | "result";
 interface RoomData {
   host: string;
   guest?: string;
+  hostName: string;
+  guestName?: string;
   phase: Phase;
   countdownValue?: string;
   goTimestamp?: number;
@@ -44,6 +46,7 @@ export default function ReactionGame() {
   const [screen, setScreen] = useState<"lobby" | "game">("lobby");
   const [roomCode, setRoomCode] = useState("");
   const [joinInput, setJoinInput] = useState("");
+  const [playerName, setPlayerName] = useState("");
   const [playerId] = useState(() => generatePlayerId());
   const [isHost, setIsHost] = useState(false);
   const [room, setRoom] = useState<RoomData | null>(null);
@@ -87,10 +90,16 @@ export default function ReactionGame() {
 
   // ── Create room ───────────────────────────────────────────────
   const createRoom = useCallback(async () => {
+    const name = playerName.trim();
+    if (!name) {
+      setError("Enter your name first");
+      return;
+    }
     const code = generateRoomCode();
     const roomRef = ref(db, `rooms/${code}`);
     const initial: RoomData = {
       host: playerId,
+      hostName: name,
       phase: "idle",
       round: 0,
       score: { host: 0, guest: 0 },
@@ -100,10 +109,15 @@ export default function ReactionGame() {
     setIsHost(true);
     setScreen("game");
     setError("");
-  }, [playerId]);
+  }, [playerId, playerName]);
 
   // ── Join room ─────────────────────────────────────────────────
   const joinRoom = useCallback(async () => {
+    const name = playerName.trim();
+    if (!name) {
+      setError("Enter your name first");
+      return;
+    }
     const code = joinInput.toUpperCase().trim();
     if (code.length !== 4) {
       setError("Enter a 4-character room code");
@@ -120,12 +134,12 @@ export default function ReactionGame() {
       setError("Room is full");
       return;
     }
-    await update(roomRef, { guest: playerId });
+    await update(roomRef, { guest: playerId, guestName: name });
     setRoomCode(code);
     setIsHost(false);
     setScreen("game");
     setError("");
-  }, [joinInput, playerId]);
+  }, [joinInput, playerId, playerName]);
 
   // ── Host: run countdown sequence ──────────────────────────────
   const startRound = useCallback(async () => {
@@ -265,6 +279,18 @@ export default function ReactionGame() {
         </p>
 
         <div className="flex flex-col gap-4 w-full max-w-xs">
+          <input
+            type="text"
+            placeholder="Your name"
+            value={playerName}
+            onChange={(e) => {
+              setPlayerName(e.target.value);
+              setError("");
+            }}
+            maxLength={16}
+            className="w-full py-3 px-4 bg-gray-800 border border-gray-700 text-white text-center text-xl rounded-xl focus:outline-none focus:border-emerald-500 placeholder:text-gray-600"
+          />
+
           <button
             onClick={createRoom}
             className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-xl transition-all active:scale-95"
@@ -312,8 +338,10 @@ export default function ReactionGame() {
   const phase = room?.phase || "idle";
   const canClick = phase === "countdown" || phase === "wait" || phase === "go";
 
-  const myLabel = isHost ? "Player 1 (You)" : "Player 2 (You)";
-  const opponentLabel = isHost ? "Player 2" : "Player 1";
+  const myName = isHost ? room?.hostName : room?.guestName;
+  const opponentName = isHost ? room?.guestName : room?.hostName;
+  const myLabel = `${myName || "You"} (You)`;
+  const opponentLabel = opponentName || "Opponent";
 
   const getReactionTime = () => {
     if (!room?.clicks || !room.goTimestamp) return null;
@@ -371,10 +399,10 @@ export default function ReactionGame() {
             {copied ? "Copied!" : "Copy"}
           </span>
         </button>
-        <div className="flex gap-3 text-lg font-bold">
-          <span className="text-blue-400">{room?.score.host || 0}</span>
+        <div className="flex gap-3 text-lg font-bold items-center">
+          <span className="text-blue-400">{room?.hostName} {room?.score.host || 0}</span>
           <span className="text-gray-600">-</span>
-          <span className="text-rose-400">{room?.score.guest || 0}</span>
+          <span className="text-rose-400">{room?.score.guest || 0} {room?.guestName}</span>
         </div>
       </div>
 
@@ -415,7 +443,7 @@ export default function ReactionGame() {
 
             {phase === "idle" && !isHost && (
               <div className="text-2xl sm:text-3xl text-gray-400 font-semibold">
-                Waiting for host to start...
+                Waiting for {room?.hostName || "host"} to start...
               </div>
             )}
 
@@ -446,7 +474,7 @@ export default function ReactionGame() {
                       Too early!
                     </div>
                     <div className="text-lg sm:text-xl text-gray-400">
-                      {iFouled ? "You jumped the gun!" : "Opponent jumped the gun!"}
+                      {iFouled ? "You jumped the gun!" : `${opponentLabel} jumped the gun!`}
                     </div>
                   </>
                 ) : (
@@ -504,7 +532,7 @@ export default function ReactionGame() {
           )}
           {phase === "result" && !isHost && (
             <div className="text-gray-500 text-sm">
-              Waiting for host to start next round...
+              Waiting for {room?.hostName || "host"} to start next round...
             </div>
           )}
         </>
