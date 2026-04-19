@@ -7,12 +7,25 @@ import {
   update,
   remove,
   onDisconnect,
-  serverTimestamp,
   get,
 } from "firebase/database";
 
+// ── Teams ─────────────────────────────────────────────────────────
+const TEAMS = [
+  "Manchester United", "Liverpool", "Arsenal", "Chelsea", "Manchester City",
+  "Real Madrid", "Barcelona", "Atlético Madrid", "Sevilla", "Valencia",
+  "Bayern Munich", "Borussia Dortmund", "RB Leipzig", "Bayer Leverkusen", "Eintracht Frankfurt",
+  "Juventus", "AC Milan", "Inter Milan", "Napoli", "AS Roma",
+  "Paris Saint-Germain", "Marseille", "Lyon", "Monaco", "Lille",
+  "Ajax", "PSV Eindhoven", "Feyenoord", "AZ Alkmaar", "FC Utrecht",
+  "Benfica", "Porto", "Sporting CP", "Braga", "Vitória Guimarães",
+  "Galatasaray", "Fenerbahçe", "Beşiktaş", "Trabzonspor", "İstanbul Başakşehir",
+  "Club Brugge", "Anderlecht", "Genk", "Standard Liège", "Gent",
+  "Olympiacos", "Panathinaikos", "AEK Athens", "PAOK", "Aris Thessaloniki",
+];
+
 // ── Types ──────────────────────────────────────────────────────────
-type Phase = "idle" | "countdown" | "wait" | "go" | "result";
+type Phase = "idle" | "picking" | "ready" | "countdown" | "wait" | "go" | "result";
 
 interface RoomData {
   host: string;
@@ -20,11 +33,12 @@ interface RoomData {
   phase: Phase;
   countdownValue?: string;
   goTimestamp?: number;
-  clicks?: { [playerId: string]: number }; // timestamp of click
-  foul?: string; // playerId who clicked early
+  clicks?: { [key: string]: number };
+  foul?: string;
   winner?: string;
   round: number;
   score: { host: number; guest: number };
+  picks?: { host?: string; guest?: string };
 }
 
 // ── Helpers ────────────────────────────────────────────────────────
@@ -49,6 +63,7 @@ export default function ReactionGame() {
   const [room, setRoom] = useState<RoomData | null>(null);
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
+  const [teamSearch, setTeamSearch] = useState("");
 
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -64,7 +79,6 @@ export default function ReactionGame() {
     const unsub = onValue(roomRef, (snap) => {
       const data = snap.val() as RoomData | null;
       if (!data) {
-        // room was deleted
         setScreen("lobby");
         setRoomCode("");
         setRoom(null);
@@ -127,7 +141,30 @@ export default function ReactionGame() {
     setError("");
   }, [joinInput, playerId]);
 
-  // ── Host: run countdown sequence ──────────────────────────────
+  // ── Start picking phase ───────────────────────────────────────
+  const startPicking = useCallback(async () => {
+    if (!isHost || !roomCode) return;
+    await update(ref(db, `rooms/${roomCode}`), {
+      phase: "picking",
+      picks: null,
+      clicks: null,
+      foul: null,
+      winner: null,
+    });
+    setTeamSearch("");
+  }, [isHost, roomCode]);
+
+  // ── Pick a team ───────────────────────────────────────────────
+  const pickTeam = useCallback(async (team: string) => {
+    if (!roomCode) return;
+    const myKey = isHost ? "host" : "guest";
+    await update(ref(db, `rooms/${roomCode}/picks`), {
+      [myKey]: team,
+    });
+    setTeamSearch("");
+  }, [roomCode, isHost]);
+
+  // ── Host: start round after both picked ───────────────────────
   const startRound = useCallback(async () => {
     if (!isHost || !roomCode) return;
     const roomRef = ref(db, `rooms/${roomCode}`);
@@ -136,9 +173,6 @@ export default function ReactionGame() {
     await update(roomRef, {
       phase: "countdown",
       countdownValue: "3",
-      clicks: null,
-      foul: null,
-      winner: null,
     });
 
     const t1 = setTimeout(async () => {
@@ -153,12 +187,10 @@ export default function ReactionGame() {
       await update(roomRef, { phase: "wait", countdownValue: "..." });
     }, 3000);
 
-    // Random delay 1-3s after countdown ends
     const randomDelay = 1000 + Math.random() * 2000;
     const t4 = setTimeout(async () => {
-      // Check if someone fouled during wait
       const snap = await get(ref(db, `rooms/${roomCode}/foul`));
-      if (snap.exists()) return; // already fouled, don't show GO
+      if (snap.exists()) return;
       const now = Date.now();
       await update(roomRef, {
         phase: "go",
@@ -176,8 +208,6 @@ export default function ReactionGame() {
     const { phase } = room;
 
     if (phase === "countdown" || phase === "wait") {
-      // Foul — clicked too early
-      const otherIsHost = isHost ? false : true;
       const winnerKey = isHost ? "guest" : "host";
       clearTimers();
       await update(ref(db, `rooms/${roomCode}`), {
@@ -187,10 +217,8 @@ export default function ReactionGame() {
         [`score/${winnerKey}`]: (room.score[winnerKey] || 0) + 1,
       });
     } else if (phase === "go") {
-      // First click wins — end round immediately
       const clickTime = Date.now();
       const myKey = isHost ? "host" : "guest";
-
       await update(ref(db, `rooms/${roomCode}`), {
         phase: "result",
         winner: myKey,
@@ -230,7 +258,7 @@ export default function ReactionGame() {
           Reaction Duel
         </h1>
         <p className="text-gray-400 text-lg text-center max-w-md">
-          Create a room and share the code with a friend. Who clicks first after GO?
+          Pick your team, then race to click first after GO!
         </p>
 
         <div className="flex flex-col gap-4 w-full max-w-xs">
@@ -281,15 +309,9 @@ export default function ReactionGame() {
   const phase = room?.phase || "idle";
   const canClick = phase === "countdown" || phase === "wait" || phase === "go";
 
-  const myLabel = isHost ? "Player 1 (You)" : "Player 2 (You)";
-  const opponentLabel = isHost ? "Player 2" : "Player 1";
-
-  const getReactionTime = () => {
-    if (!room?.clicks || !room.goTimestamp) return null;
-    const myClick = room.clicks[myRole];
-    if (!myClick) return null;
-    return myClick - room.goTimestamp;
-  };
+  const myPick = room?.picks?.[myRole];
+  const opponentPick = room?.picks?.[opponentRole];
+  const bothPicked = !!myPick && !!opponentPick;
 
   const getWinnerReactionTime = () => {
     if (!room?.clicks || !room.goTimestamp || !room.winner) return null;
@@ -301,11 +323,18 @@ export default function ReactionGame() {
   const iWon = room?.winner === myRole;
   const iFouled = room?.foul === playerId;
 
+  const winnerTeam = room?.winner ? room?.picks?.[room.winner] : null;
+
+  // Filtered teams for search
+  const filteredTeams = teamSearch
+    ? TEAMS.filter((t) => t.toLowerCase().includes(teamSearch.toLowerCase()))
+    : TEAMS;
+
   // Button styling
   const getBtnClass = () => {
     const base =
       "w-full flex-1 text-3xl sm:text-5xl font-black uppercase tracking-wider transition-all duration-150 select-none rounded-2xl";
-    if (waitingForOpponent || phase === "idle")
+    if (waitingForOpponent || phase === "idle" || phase === "picking" || phase === "ready")
       return `${base} bg-gray-800 text-gray-600 cursor-not-allowed`;
     if (phase === "result") {
       if (iWon) return `${base} bg-emerald-600 text-white shadow-[0_0_40px_rgba(16,185,129,0.4)] cursor-default`;
@@ -314,14 +343,13 @@ export default function ReactionGame() {
     }
     if (phase === "countdown" || phase === "wait")
       return `${base} bg-yellow-600/80 hover:bg-yellow-500 text-white cursor-pointer active:scale-95`;
-    // go
     return `${base} bg-emerald-500 hover:bg-emerald-400 text-white cursor-pointer active:scale-95 animate-pulse-glow`;
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center p-4 gap-3 select-none">
-      {/* Top bar: room code + scores + leave */}
-      <div className="flex items-center justify-between w-full max-w-4xl">
+    <div className="h-screen w-screen flex flex-col items-center justify-center p-4 gap-3 select-none overflow-hidden">
+      {/* Top bar */}
+      <div className="flex items-center justify-between w-full max-w-4xl shrink-0">
         <button
           onClick={leaveRoom}
           className="text-gray-500 hover:text-white text-sm transition-colors"
@@ -371,110 +399,200 @@ export default function ReactionGame() {
       {/* Game active */}
       {!waitingForOpponent && (
         <>
-          {/* Center display */}
-          <div className="flex items-center justify-center h-28 sm:h-36">
-            {phase === "idle" && isHost && (
-              <button
-                onClick={startRound}
-                className="px-10 py-5 bg-white text-gray-950 text-2xl sm:text-4xl font-black rounded-2xl hover:bg-gray-200 active:scale-95 transition-all animate-pulse-glow"
-              >
-                Start Round
-              </button>
-            )}
+          {/* ── IDLE: host starts picking ── */}
+          {phase === "idle" && (
+            <div className="flex-1 flex items-center justify-center">
+              {isHost ? (
+                <button
+                  onClick={startPicking}
+                  className="px-10 py-5 bg-white text-gray-950 text-2xl sm:text-4xl font-black rounded-2xl hover:bg-gray-200 active:scale-95 transition-all animate-pulse-glow"
+                >
+                  New Round
+                </button>
+              ) : (
+                <div className="text-2xl sm:text-3xl text-gray-400 font-semibold">
+                  Waiting for host to start...
+                </div>
+              )}
+            </div>
+          )}
 
-            {phase === "idle" && !isHost && (
-              <div className="text-2xl sm:text-3xl text-gray-400 font-semibold">
-                Waiting for host to start...
+          {/* ── PICKING: team selection ── */}
+          {phase === "picking" && (
+            <div className="flex-1 flex flex-col items-center gap-3 w-full max-w-lg min-h-0">
+              {/* Pick status */}
+              <div className="flex gap-4 text-sm shrink-0">
+                <span className={myPick ? "text-emerald-400" : "text-yellow-400"}>
+                  You: {myPick || "picking..."}
+                </span>
+                <span className="text-gray-600">|</span>
+                <span className={opponentPick ? "text-emerald-400" : "text-gray-500"}>
+                  Opponent: {opponentPick ? "Ready" : "picking..."}
+                </span>
               </div>
-            )}
 
-            {(phase === "countdown" || phase === "wait") && (
-              <div
-                key={room?.countdownValue}
-                className={`text-7xl sm:text-9xl font-black animate-countdown-pop ${
-                  room?.countdownValue === "..."
-                    ? "text-gray-500"
-                    : "text-white"
-                }`}
-              >
-                {room?.countdownValue}
-              </div>
-            )}
-
-            {phase === "go" && (
-              <div className="text-7xl sm:text-9xl font-black text-emerald-400 animate-countdown-pop">
-                GO!
-              </div>
-            )}
-
-            {phase === "result" && (
-              <div className="text-center animate-countdown-pop">
-                {room?.foul ? (
-                  <>
-                    <div className="text-3xl sm:text-5xl font-black text-red-400 mb-2">
-                      Too early!
-                    </div>
-                    <div className="text-lg sm:text-xl text-gray-400">
-                      {iFouled ? "You jumped the gun!" : "Opponent jumped the gun!"}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      className={`text-3xl sm:text-5xl font-black mb-2 ${
-                        iWon ? "text-emerald-400" : "text-red-400"
-                      }`}
+              {/* Already picked */}
+              {myPick ? (
+                <div className="flex-1 flex flex-col items-center justify-center gap-3">
+                  <div className="text-xl text-white font-bold">Your pick:</div>
+                  <div className="text-3xl sm:text-4xl font-black text-emerald-400">
+                    {myPick}
+                  </div>
+                  {bothPicked && isHost && (
+                    <button
+                      onClick={startRound}
+                      className="mt-4 px-10 py-4 bg-white text-gray-950 text-xl sm:text-2xl font-black rounded-2xl hover:bg-gray-200 active:scale-95 transition-all animate-pulse-glow"
                     >
-                      {iWon ? "You win!" : "You lose!"}
+                      Start Round
+                    </button>
+                  )}
+                  {bothPicked && !isHost && (
+                    <div className="mt-4 text-gray-500 text-sm">
+                      Waiting for host to start...
                     </div>
-                    {getWinnerReactionTime() !== null && (
-                      <div className="text-lg sm:text-xl text-gray-400">
-                        {getWinnerReactionTime()} ms
-                      </div>
+                  )}
+                  {!bothPicked && (
+                    <div className="mt-4 text-gray-500 text-sm">
+                      Waiting for opponent to pick...
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
+                  {/* Search */}
+                  <input
+                    type="text"
+                    placeholder="Search teams..."
+                    value={teamSearch}
+                    onChange={(e) => setTeamSearch(e.target.value)}
+                    className="w-full py-2 px-4 bg-gray-800 border border-gray-700 text-white rounded-lg focus:outline-none focus:border-blue-500 placeholder:text-gray-600 shrink-0"
+                  />
+
+                  {/* Team grid */}
+                  <div className="flex-1 overflow-y-auto w-full min-h-0">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pb-2">
+                      {filteredTeams.map((team) => (
+                        <button
+                          key={team}
+                          onClick={() => pickTeam(team)}
+                          className="py-3 px-2 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-all active:scale-95 text-center border border-gray-700 hover:border-blue-500"
+                        >
+                          {team}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* ── COUNTDOWN / WAIT / GO / RESULT ── */}
+          {(phase === "countdown" || phase === "wait" || phase === "go" || phase === "result") && (
+            <>
+              {/* Team matchup banner */}
+              <div className="flex items-center gap-3 sm:gap-6 shrink-0 w-full max-w-2xl justify-center">
+                <div className={`text-center flex-1 ${phase === "result" && room?.winner === "host" ? "opacity-100" : phase === "result" ? "opacity-40" : ""}`}>
+                  <div className="text-xs sm:text-sm text-gray-500 mb-1">Player 1</div>
+                  <div className="text-sm sm:text-xl font-bold text-blue-400 truncate">
+                    {room?.picks?.host || "???"}
+                  </div>
+                </div>
+                <div className="text-xl sm:text-2xl font-black text-gray-600">VS</div>
+                <div className={`text-center flex-1 ${phase === "result" && room?.winner === "guest" ? "opacity-100" : phase === "result" ? "opacity-40" : ""}`}>
+                  <div className="text-xs sm:text-sm text-gray-500 mb-1">Player 2</div>
+                  <div className="text-sm sm:text-xl font-bold text-rose-400 truncate">
+                    {room?.picks?.guest || "???"}
+                  </div>
+                </div>
+              </div>
+
+              {/* Center display */}
+              <div className="flex items-center justify-center h-28 sm:h-36 shrink-0">
+                {(phase === "countdown" || phase === "wait") && (
+                  <div
+                    key={room?.countdownValue}
+                    className={`text-7xl sm:text-9xl font-black animate-countdown-pop ${
+                      room?.countdownValue === "..."
+                        ? "text-gray-500"
+                        : "text-white"
+                    }`}
+                  >
+                    {room?.countdownValue}
+                  </div>
+                )}
+
+                {phase === "go" && (
+                  <div className="text-7xl sm:text-9xl font-black text-emerald-400 animate-countdown-pop">
+                    GO!
+                  </div>
+                )}
+
+                {phase === "result" && (
+                  <div className="text-center animate-countdown-pop">
+                    {room?.foul ? (
+                      <>
+                        <div className="text-3xl sm:text-5xl font-black text-red-400 mb-2">
+                          Too early!
+                        </div>
+                        <div className="text-lg sm:text-xl text-gray-400">
+                          {iFouled ? "You jumped the gun!" : "Opponent jumped the gun!"}
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div
+                          className={`text-3xl sm:text-5xl font-black mb-2 ${
+                            iWon ? "text-emerald-400" : "text-red-400"
+                          }`}
+                        >
+                          {iWon ? "You win!" : "You lose!"}
+                        </div>
+                        {winnerTeam && (
+                          <div className="text-lg sm:text-xl text-gray-300 font-semibold mb-1">
+                            {winnerTeam}
+                          </div>
+                        )}
+                        {getWinnerReactionTime() !== null && (
+                          <div className="text-base sm:text-lg text-gray-500">
+                            {getWinnerReactionTime()} ms
+                          </div>
+                        )}
+                      </>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
-            )}
-          </div>
 
-          {/* Player button */}
-          <div className="w-full max-w-md flex-1 max-h-64 sm:max-h-80 flex">
-            <button
-              className={getBtnClass()}
-              onClick={handleClick}
-              disabled={!canClick}
-            >
-              <span className="block text-base sm:text-lg font-semibold mb-1 opacity-70">
-                {myLabel}
-              </span>
-              <span className="block">TAP!</span>
-            </button>
-          </div>
+              {/* Player button */}
+              <div className="w-full max-w-md flex-1 max-h-48 sm:max-h-64 flex shrink-0">
+                <button
+                  className={getBtnClass()}
+                  onClick={handleClick}
+                  disabled={!canClick}
+                >
+                  <span className="block text-base sm:text-lg font-semibold mb-1 opacity-70">
+                    {myPick || "TAP!"}
+                  </span>
+                  <span className="block">TAP!</span>
+                </button>
+              </div>
 
-          {/* Opponent status */}
-          <div className="text-sm text-gray-500">
-            {phase === "go" && !room?.clicks?.[opponentRole] && (
-              <span>{opponentLabel} hasn't clicked yet...</span>
-            )}
-            {phase === "go" && room?.clicks?.[opponentRole] && !room?.clicks?.[myRole] && (
-              <span className="text-yellow-400">{opponentLabel} already clicked!</span>
-            )}
-          </div>
-
-          {/* Play again (host only) */}
-          {phase === "result" && isHost && (
-            <button
-              onClick={startRound}
-              className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white text-lg sm:text-xl font-bold rounded-xl transition-all active:scale-95"
-            >
-              Next Round
-            </button>
-          )}
-          {phase === "result" && !isHost && (
-            <div className="text-gray-500 text-sm">
-              Waiting for host to start next round...
-            </div>
+              {/* Next round */}
+              {phase === "result" && isHost && (
+                <button
+                  onClick={startPicking}
+                  className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white text-lg sm:text-xl font-bold rounded-xl transition-all active:scale-95 shrink-0"
+                >
+                  Next Round
+                </button>
+              )}
+              {phase === "result" && !isHost && (
+                <div className="text-gray-500 text-sm shrink-0">
+                  Waiting for host to start next round...
+                </div>
+              )}
+            </>
           )}
         </>
       )}
