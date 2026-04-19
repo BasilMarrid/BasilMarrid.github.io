@@ -25,17 +25,21 @@ const TEAMS = [
 ];
 
 // ── Types ──────────────────────────────────────────────────────────
-type Phase = "idle" | "picking" | "ready" | "countdown" | "wait" | "go" | "result";
+type Phase = "idle" | "picking" | "ready" | "countdown" | "wait" | "go" | "confirm" | "result";
 
 interface RoomData {
   host: string;
   guest?: string;
+  hostName?: string;
+  guestName?: string;
   phase: Phase;
   countdownValue?: string;
   goTimestamp?: number;
   clicks?: { [key: string]: number };
   foul?: string;
   winner?: string;
+  confirmed?: boolean;
+  confirmDeadline?: number;
   round: number;
   score: { host: number; guest: number };
   picks?: { host?: string; guest?: string };
@@ -53,11 +57,41 @@ function generatePlayerId(): string {
   return Math.random().toString(36).slice(2, 10);
 }
 
+// ── Confirm Button with countdown ─────────────────────────────────
+function ConfirmButton({ onDone, deadline }: { onDone: () => void; deadline: number }) {
+  const [timeLeft, setTimeLeft] = useState(() => Math.max(0, Math.ceil((deadline - Date.now()) / 100) / 10));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const remaining = Math.max(0, (deadline - Date.now()) / 1000);
+      setTimeLeft(Math.ceil(remaining * 10) / 10);
+      if (remaining <= 0) clearInterval(interval);
+    }, 50);
+    return () => clearInterval(interval);
+  }, [deadline]);
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <div className="text-lg sm:text-xl text-gray-400">Click "Done" to win!</div>
+      <button
+        onClick={onDone}
+        className="px-12 py-5 bg-emerald-500 hover:bg-emerald-400 text-white text-3xl sm:text-5xl font-black rounded-2xl transition-all active:scale-95 animate-pulse-glow"
+      >
+        Done!
+      </button>
+      <div className={`text-2xl font-bold font-mono ${timeLeft <= 0.5 ? "text-red-400" : "text-yellow-400"}`}>
+        {timeLeft.toFixed(1)}s
+      </div>
+    </div>
+  );
+}
+
 // ── Component ──────────────────────────────────────────────────────
 export default function ReactionGame() {
   const [screen, setScreen] = useState<"lobby" | "game">("lobby");
   const [roomCode, setRoomCode] = useState("");
   const [joinInput, setJoinInput] = useState("");
+  const [playerName, setPlayerName] = useState("");
   const [playerId] = useState(() => generatePlayerId());
   const [isHost, setIsHost] = useState(false);
   const [room, setRoom] = useState<RoomData | null>(null);
@@ -101,10 +135,13 @@ export default function ReactionGame() {
 
   // ── Create room ───────────────────────────────────────────────
   const createRoom = useCallback(async () => {
+    const name = playerName.trim();
+    if (!name) { setError("Enter your name first"); return; }
     const code = generateRoomCode();
     const roomRef = ref(db, `rooms/${code}`);
     const initial: RoomData = {
       host: playerId,
+      hostName: name,
       phase: "idle",
       round: 0,
       score: { host: 0, guest: 0 },
@@ -114,10 +151,12 @@ export default function ReactionGame() {
     setIsHost(true);
     setScreen("game");
     setError("");
-  }, [playerId]);
+  }, [playerId, playerName]);
 
   // ── Join room ─────────────────────────────────────────────────
   const joinRoom = useCallback(async () => {
+    const name = playerName.trim();
+    if (!name) { setError("Enter your name first"); return; }
     const code = joinInput.toUpperCase().trim();
     if (code.length !== 4) {
       setError("Enter a 4-character room code");
@@ -134,12 +173,12 @@ export default function ReactionGame() {
       setError("Room is full");
       return;
     }
-    await update(roomRef, { guest: playerId });
+    await update(roomRef, { guest: playerId, guestName: name });
     setRoomCode(code);
     setIsHost(false);
     setScreen("game");
     setError("");
-  }, [joinInput, playerId]);
+  }, [joinInput, playerId, playerName]);
 
   // ── Start picking phase ───────────────────────────────────────
   const startPicking = useCallback(async () => {
@@ -150,6 +189,8 @@ export default function ReactionGame() {
       clicks: null,
       foul: null,
       winner: null,
+      confirmed: null,
+      confirmDeadline: null,
     });
     setTeamSearch("");
   }, [isHost, roomCode]);
@@ -220,13 +261,53 @@ export default function ReactionGame() {
       const clickTime = Date.now();
       const myKey = isHost ? "host" : "guest";
       await update(ref(db, `rooms/${roomCode}`), {
-        phase: "result",
+        phase: "confirm",
         winner: myKey,
         [`clicks/${myKey}`]: clickTime,
-        [`score/${myKey}`]: (room.score[myKey] || 0) + 1,
+        confirmDeadline: clickTime + 2000,
+        confirmed: false,
       });
     }
   }, [room, roomCode, isHost, playerId, clearTimers]);
+
+  // ── Winner clicks "Done" ────────────────────────────────────
+  const handleDone = useCallback(async () => {
+    if (!room || !roomCode || room.phase !== "confirm") return;
+    const myKey = isHost ? "host" : "guest";
+    if (room.winner !== myKey) return;
+    await update(ref(db, `rooms/${roomCode}`), {
+      phase: "result",
+      confirmed: true,
+      [`score/${myKey}`]: (room.score[myKey] || 0) + 1,
+    });
+  }, [room, roomCode, isHost]);
+
+  // ── 2-second confirm timeout ────────────────────────────────
+  useEffect(() => {
+    if (!room || room.phase !== "confirm" || !roomCode) return;
+    const myKey = isHost ? "host" : "guest";
+    const otherKey = isHost ? "guest" : "host";
+    // Only the winner's client runs the timeout
+    if (room.winner !== myKey) return;
+
+    const remaining = (room.confirmDeadline || 0) - Date.now();
+    const delay = Math.max(0, remaining);
+
+    const t = setTimeout(async () => {
+      // Check if already confirmed
+      const snap = await get(ref(db, `rooms/${roomCode}/confirmed`));
+      if (snap.val() === true) return;
+      // Time's up — flip the winner
+      await update(ref(db, `rooms/${roomCode}`), {
+        phase: "result",
+        winner: otherKey,
+        confirmed: false,
+        [`score/${otherKey}`]: (room.score[otherKey] || 0) + 1,
+      });
+    }, delay);
+
+    return () => clearTimeout(t);
+  }, [room?.phase, room?.confirmDeadline, roomCode, isHost]);
 
   // ── Leave room ────────────────────────────────────────────────
   const leaveRoom = useCallback(async () => {
@@ -262,6 +343,15 @@ export default function ReactionGame() {
         </p>
 
         <div className="flex flex-col gap-4 w-full max-w-xs">
+          <input
+            type="text"
+            placeholder="Your name"
+            value={playerName}
+            onChange={(e) => { setPlayerName(e.target.value); setError(""); }}
+            maxLength={16}
+            className="w-full py-3 px-4 bg-gray-800 border border-gray-700 text-white text-center text-xl rounded-xl focus:outline-none focus:border-emerald-500 placeholder:text-gray-600"
+          />
+
           <button
             onClick={createRoom}
             className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xl font-bold rounded-xl transition-all active:scale-95"
@@ -309,6 +399,11 @@ export default function ReactionGame() {
   const phase = room?.phase || "idle";
   const canClick = phase === "countdown" || phase === "wait" || phase === "go";
 
+  const hostName = room?.hostName || "Player 1";
+  const guestName = room?.guestName || "Player 2";
+  const myName = isHost ? hostName : guestName;
+  const opponentName = isHost ? guestName : hostName;
+
   const myPick = room?.picks?.[myRole];
   const opponentPick = room?.picks?.[opponentRole];
   const bothPicked = !!myPick && !!opponentPick;
@@ -334,7 +429,7 @@ export default function ReactionGame() {
   const getBtnClass = () => {
     const base =
       "w-full flex-1 text-3xl sm:text-5xl font-black uppercase tracking-wider transition-all duration-150 select-none rounded-2xl";
-    if (waitingForOpponent || phase === "idle" || phase === "picking" || phase === "ready")
+    if (waitingForOpponent || phase === "idle" || phase === "picking" || phase === "ready" || phase === "confirm")
       return `${base} bg-gray-800 text-gray-600 cursor-not-allowed`;
     if (phase === "result") {
       if (iWon) return `${base} bg-emerald-600 text-white shadow-[0_0_40px_rgba(16,185,129,0.4)] cursor-default`;
@@ -368,10 +463,10 @@ export default function ReactionGame() {
             {copied ? "Copied!" : "Copy"}
           </span>
         </button>
-        <div className="flex gap-3 text-lg font-bold">
-          <span className="text-blue-400">{room?.score.host || 0}</span>
+        <div className="flex gap-3 text-base sm:text-lg font-bold items-center">
+          <span className="text-blue-400">{hostName} {room?.score.host || 0}</span>
           <span className="text-gray-600">-</span>
-          <span className="text-rose-400">{room?.score.guest || 0}</span>
+          <span className="text-rose-400">{room?.score.guest || 0} {guestName}</span>
         </div>
       </div>
 
@@ -411,7 +506,7 @@ export default function ReactionGame() {
                 </button>
               ) : (
                 <div className="text-2xl sm:text-3xl text-gray-400 font-semibold">
-                  Waiting for host to start...
+                  Waiting for {hostName} to start...
                 </div>
               )}
             </div>
@@ -423,11 +518,11 @@ export default function ReactionGame() {
               {/* Pick status */}
               <div className="flex gap-4 text-sm shrink-0">
                 <span className={myPick ? "text-emerald-400" : "text-yellow-400"}>
-                  You: {myPick || "picking..."}
+                  {myName}: {myPick || "picking..."}
                 </span>
                 <span className="text-gray-600">|</span>
                 <span className={opponentPick ? "text-emerald-400" : "text-gray-500"}>
-                  Opponent: {opponentPick ? "Ready" : "picking..."}
+                  {opponentName}: {opponentPick ? "Ready" : "picking..."}
                 </span>
               </div>
 
@@ -448,12 +543,12 @@ export default function ReactionGame() {
                   )}
                   {bothPicked && !isHost && (
                     <div className="mt-4 text-gray-500 text-sm">
-                      Waiting for host to start...
+                      Waiting for {hostName} to start...
                     </div>
                   )}
                   {!bothPicked && (
                     <div className="mt-4 text-gray-500 text-sm">
-                      Waiting for opponent to pick...
+                      Waiting for {opponentName} to pick...
                     </div>
                   )}
                 </div>
@@ -487,20 +582,20 @@ export default function ReactionGame() {
             </div>
           )}
 
-          {/* ── COUNTDOWN / WAIT / GO / RESULT ── */}
-          {(phase === "countdown" || phase === "wait" || phase === "go" || phase === "result") && (
+          {/* ── COUNTDOWN / WAIT / GO / CONFIRM / RESULT ── */}
+          {(phase === "countdown" || phase === "wait" || phase === "go" || phase === "confirm" || phase === "result") && (
             <>
               {/* Team matchup banner */}
               <div className="flex items-center gap-3 sm:gap-6 shrink-0 w-full max-w-2xl justify-center">
                 <div className={`text-center flex-1 ${phase === "result" && room?.winner === "host" ? "opacity-100" : phase === "result" ? "opacity-40" : ""}`}>
-                  <div className="text-xs sm:text-sm text-gray-500 mb-1">Player 1</div>
+                  <div className="text-xs sm:text-sm text-gray-500 mb-1">{hostName}</div>
                   <div className="text-sm sm:text-xl font-bold text-blue-400 truncate">
                     {room?.picks?.host || "???"}
                   </div>
                 </div>
                 <div className="text-xl sm:text-2xl font-black text-gray-600">VS</div>
                 <div className={`text-center flex-1 ${phase === "result" && room?.winner === "guest" ? "opacity-100" : phase === "result" ? "opacity-40" : ""}`}>
-                  <div className="text-xs sm:text-sm text-gray-500 mb-1">Player 2</div>
+                  <div className="text-xs sm:text-sm text-gray-500 mb-1">{guestName}</div>
                   <div className="text-sm sm:text-xl font-bold text-rose-400 truncate">
                     {room?.picks?.guest || "???"}
                   </div>
@@ -528,6 +623,18 @@ export default function ReactionGame() {
                   </div>
                 )}
 
+                {phase === "confirm" && (
+                  <div className="text-center animate-countdown-pop">
+                    {iWon ? (
+                      <ConfirmButton onDone={handleDone} deadline={room?.confirmDeadline || 0} />
+                    ) : (
+                      <div className="text-2xl sm:text-3xl font-bold text-yellow-400">
+                        {opponentName} clicked first...
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 {phase === "result" && (
                   <div className="text-center animate-countdown-pop">
                     {room?.foul ? (
@@ -536,7 +643,7 @@ export default function ReactionGame() {
                           Too early!
                         </div>
                         <div className="text-lg sm:text-xl text-gray-400">
-                          {iFouled ? "You jumped the gun!" : "Opponent jumped the gun!"}
+                          {iFouled ? "You jumped the gun!" : `${opponentName} jumped the gun!`}
                         </div>
                       </>
                     ) : (
@@ -548,12 +655,17 @@ export default function ReactionGame() {
                         >
                           {iWon ? "You win!" : "You lose!"}
                         </div>
+                        {!room?.confirmed && !room?.foul && (
+                          <div className="text-base sm:text-lg text-yellow-400 mb-1">
+                            Too slow on "Done"!
+                          </div>
+                        )}
                         {winnerTeam && (
                           <div className="text-lg sm:text-xl text-gray-300 font-semibold mb-1">
                             {winnerTeam}
                           </div>
                         )}
-                        {getWinnerReactionTime() !== null && (
+                        {room?.confirmed && getWinnerReactionTime() !== null && (
                           <div className="text-base sm:text-lg text-gray-500">
                             {getWinnerReactionTime()} ms
                           </div>
@@ -572,7 +684,7 @@ export default function ReactionGame() {
                   disabled={!canClick}
                 >
                   <span className="block text-base sm:text-lg font-semibold mb-1 opacity-70">
-                    {myPick || "TAP!"}
+                    {myName} — {myPick || "TAP!"}
                   </span>
                   <span className="block">TAP!</span>
                 </button>
@@ -589,7 +701,7 @@ export default function ReactionGame() {
               )}
               {phase === "result" && !isHost && (
                 <div className="text-gray-500 text-sm shrink-0">
-                  Waiting for host to start next round...
+                  Waiting for {hostName} to start next round...
                 </div>
               )}
             </>
