@@ -187,49 +187,18 @@ export default function ReactionGame() {
         [`score/${winnerKey}`]: (room.score[winnerKey] || 0) + 1,
       });
     } else if (phase === "go") {
-      // Valid click
+      // First click wins — end round immediately
       const clickTime = Date.now();
       const myKey = isHost ? "host" : "guest";
-      const otherKey = isHost ? "guest" : "host";
 
-      // Write my click
-      await update(ref(db, `rooms/${roomCode}/clicks`), {
-        [myKey]: clickTime,
+      await update(ref(db, `rooms/${roomCode}`), {
+        phase: "result",
+        winner: myKey,
+        [`clicks/${myKey}`]: clickTime,
+        [`score/${myKey}`]: (room.score[myKey] || 0) + 1,
       });
-
-      // Re-read to see if other player already clicked
-      const snap = await get(ref(db, `rooms/${roomCode}/clicks`));
-      const clicks = snap.val() || {};
-
-      if (clicks[otherKey]) {
-        // Both clicked — determine winner
-        const myTime = clicks[myKey];
-        const otherTime = clicks[otherKey];
-        const winnerKey = myTime <= otherTime ? myKey : otherKey;
-        await update(ref(db, `rooms/${roomCode}`), {
-          phase: "result",
-          winner: winnerKey,
-          [`score/${winnerKey}`]: (room.score[winnerKey] || 0) + 1,
-        });
-      }
     }
   }, [room, roomCode, isHost, playerId, clearTimers]);
-
-  // ── Guest: watch for both clicks to resolve winner ────────────
-  useEffect(() => {
-    if (!room || room.phase !== "go" || !roomCode) return;
-    const clicks = room.clicks;
-    if (!clicks) return;
-    if (clicks.host && clicks.guest && !room.winner) {
-      // Both clicked, resolve
-      const winnerKey = clicks.host <= clicks.guest ? "host" : "guest";
-      update(ref(db, `rooms/${roomCode}`), {
-        phase: "result",
-        winner: winnerKey,
-        [`score/${winnerKey}`]: (room.score[winnerKey] || 0) + 1,
-      });
-    }
-  }, [room, roomCode]);
 
   // ── Leave room ────────────────────────────────────────────────
   const leaveRoom = useCallback(async () => {
