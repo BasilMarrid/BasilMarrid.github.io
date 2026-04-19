@@ -25,7 +25,9 @@ const TEAMS = [
 ];
 
 // ── Types ──────────────────────────────────────────────────────────
-type Phase = "idle" | "picking" | "ready" | "countdown" | "wait" | "go" | "confirm" | "result";
+type Phase = "idle" | "picking" | "ready" | "countdown" | "wait" | "go" | "confirm" | "result" | "gameover";
+
+const ROUNDS_TO_WIN = 3;
 
 interface RoomData {
   host: string;
@@ -42,6 +44,8 @@ interface RoomData {
   confirmDeadline?: number;
   round: number;
   score: { host: number; guest: number };
+  games: { host: number; guest: number };
+  gameWinner?: string;
   picks?: { host?: string; guest?: string };
 }
 
@@ -145,6 +149,7 @@ export default function ReactionGame() {
       phase: "idle",
       round: 0,
       score: { host: 0, guest: 0 },
+      games: { host: 0, guest: 0 },
     };
     await set(roomRef, initial);
     setRoomCode(code);
@@ -309,6 +314,42 @@ export default function ReactionGame() {
     return () => clearTimeout(t);
   }, [room?.phase, room?.confirmDeadline, roomCode, isHost]);
 
+  // ── Check for game win (first to 3 rounds) ─────────────────
+  useEffect(() => {
+    if (!room || room.phase !== "result" || !roomCode) return;
+    const hostScore = room.score.host || 0;
+    const guestScore = room.score.guest || 0;
+    if (hostScore < ROUNDS_TO_WIN && guestScore < ROUNDS_TO_WIN) return;
+    // Only host triggers the gameover transition to avoid race
+    if (!isHost) return;
+    const gameWinner = hostScore >= ROUNDS_TO_WIN ? "host" : "guest";
+    const timeout = setTimeout(async () => {
+      await update(ref(db, `rooms/${roomCode}`), {
+        phase: "gameover",
+        gameWinner,
+        [`games/${gameWinner}`]: ((room.games?.[gameWinner]) || 0) + 1,
+      });
+    }, 2000); // show round result for 2s before game over
+    return () => clearTimeout(timeout);
+  }, [room?.phase, room?.score, roomCode, isHost]);
+
+  // ── Start new game (reset round score) ────────────────────
+  const startNewGame = useCallback(async () => {
+    if (!isHost || !roomCode) return;
+    await update(ref(db, `rooms/${roomCode}`), {
+      phase: "picking",
+      score: { host: 0, guest: 0 },
+      picks: null,
+      clicks: null,
+      foul: null,
+      winner: null,
+      gameWinner: null,
+      confirmed: null,
+      confirmDeadline: null,
+    });
+    setTeamSearch("");
+  }, [isHost, roomCode]);
+
   // ── Leave room ────────────────────────────────────────────────
   const leaveRoom = useCallback(async () => {
     clearTimers();
@@ -463,10 +504,20 @@ export default function ReactionGame() {
             {copied ? "Copied!" : "Copy"}
           </span>
         </button>
-        <div className="flex gap-3 text-base sm:text-lg font-bold items-center">
-          <span className="text-blue-400">{hostName} {room?.score.host || 0}</span>
-          <span className="text-gray-600">-</span>
-          <span className="text-rose-400">{room?.score.guest || 0} {guestName}</span>
+        <div className="flex flex-col items-end gap-0 text-sm sm:text-base font-bold">
+          <div className="flex gap-2 items-center">
+            <span className="text-blue-400">{hostName}</span>
+            <span className="text-yellow-400 text-xs sm:text-sm">{room?.games?.host || 0}</span>
+            <span className="text-gray-600">G</span>
+            <span className="text-gray-500">|</span>
+            <span className="text-yellow-400 text-xs sm:text-sm">{room?.games?.guest || 0}</span>
+            <span className="text-rose-400">{guestName}</span>
+          </div>
+          <div className="flex gap-2 items-center text-xs text-gray-500">
+            <span>Round: {room?.score.host || 0}</span>
+            <span>-</span>
+            <span>{room?.score.guest || 0}</span>
+          </div>
         </div>
       </div>
 
@@ -690,21 +741,51 @@ export default function ReactionGame() {
                 </button>
               </div>
 
-              {/* Next round */}
-              {phase === "result" && isHost && (
-                <button
-                  onClick={startPicking}
-                  className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white text-lg sm:text-xl font-bold rounded-xl transition-all active:scale-95 shrink-0"
-                >
-                  Next Round
-                </button>
-              )}
-              {phase === "result" && !isHost && (
-                <div className="text-gray-500 text-sm shrink-0">
-                  Waiting for {hostName} to start next round...
-                </div>
+              {/* Next round (only if no one reached 3 yet) */}
+              {phase === "result" && (room?.score.host || 0) < ROUNDS_TO_WIN && (room?.score.guest || 0) < ROUNDS_TO_WIN && (
+                <>
+                  {isHost ? (
+                    <button
+                      onClick={startPicking}
+                      className="px-8 py-3 bg-gray-800 hover:bg-gray-700 text-white text-lg sm:text-xl font-bold rounded-xl transition-all active:scale-95 shrink-0"
+                    >
+                      Next Round
+                    </button>
+                  ) : (
+                    <div className="text-gray-500 text-sm shrink-0">
+                      Waiting for {hostName} to start next round...
+                    </div>
+                  )}
+                </>
               )}
             </>
+          )}
+
+          {/* ── GAME OVER ── */}
+          {phase === "gameover" && (
+            <div className="flex-1 flex flex-col items-center justify-center gap-4 animate-countdown-pop">
+              <div className="text-5xl sm:text-7xl font-black text-yellow-400">
+                GAME!
+              </div>
+              <div className={`text-3xl sm:text-4xl font-bold ${room?.gameWinner === myRole ? "text-emerald-400" : "text-red-400"}`}>
+                {room?.gameWinner === myRole ? "You win the game!" : `${opponentName} wins the game!`}
+              </div>
+              <div className="text-lg text-gray-400">
+                Games: {room?.games?.host || 0} - {room?.games?.guest || 0}
+              </div>
+              {isHost ? (
+                <button
+                  onClick={startNewGame}
+                  className="mt-4 px-10 py-4 bg-white text-gray-950 text-xl sm:text-2xl font-black rounded-2xl hover:bg-gray-200 active:scale-95 transition-all animate-pulse-glow"
+                >
+                  New Game
+                </button>
+              ) : (
+                <div className="text-gray-500 text-sm mt-4">
+                  Waiting for {hostName} to start new game...
+                </div>
+              )}
+            </div>
           )}
         </>
       )}
