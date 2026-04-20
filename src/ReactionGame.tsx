@@ -42,6 +42,7 @@ interface RoomData {
   winner?: string;
   confirmed?: boolean;
   confirmDeadline?: number;
+  scoreConfirmed?: "pending" | "confirmed" | "denied";
   round: number;
   score: { host: number; guest: number };
   games: { host: number; guest: number };
@@ -196,6 +197,7 @@ export default function ReactionGame() {
       winner: null,
       confirmed: null,
       confirmDeadline: null,
+      scoreConfirmed: null,
     });
     setTeamSearch("");
   }, [isHost, roomCode]);
@@ -260,7 +262,7 @@ export default function ReactionGame() {
         phase: "result",
         foul: playerId,
         winner: winnerKey,
-        [`score/${winnerKey}`]: (room.score[winnerKey] || 0) + 1,
+        scoreConfirmed: "pending",
       });
     } else if (phase === "go") {
       const clickTime = Date.now();
@@ -283,9 +285,27 @@ export default function ReactionGame() {
     await update(ref(db, `rooms/${roomCode}`), {
       phase: "result",
       confirmed: true,
-      [`score/${myKey}`]: (room.score[myKey] || 0) + 1,
+      scoreConfirmed: "pending",
     });
   }, [room, roomCode, isHost]);
+
+  // ── Host confirms or denies the point ─────────────────────
+  const confirmPoint = useCallback(async () => {
+    if (!isHost || !room || !roomCode || room.phase !== "result") return;
+    const winnerKey = room.winner as "host" | "guest";
+    if (!winnerKey) return;
+    await update(ref(db, `rooms/${roomCode}`), {
+      scoreConfirmed: "confirmed",
+      [`score/${winnerKey}`]: (room.score[winnerKey] || 0) + 1,
+    });
+  }, [isHost, room, roomCode]);
+
+  const denyPoint = useCallback(async () => {
+    if (!isHost || !room || !roomCode || room.phase !== "result") return;
+    await update(ref(db, `rooms/${roomCode}`), {
+      scoreConfirmed: "denied",
+    });
+  }, [isHost, room, roomCode]);
 
   // ── 2-second confirm timeout ────────────────────────────────
   useEffect(() => {
@@ -307,7 +327,7 @@ export default function ReactionGame() {
         phase: "result",
         winner: otherKey,
         confirmed: false,
-        [`score/${otherKey}`]: (room.score[otherKey] || 0) + 1,
+        scoreConfirmed: "pending",
       });
     }, delay);
 
@@ -336,6 +356,7 @@ export default function ReactionGame() {
   // ── Start new game (reset round score) ────────────────────
   const startNewGame = useCallback(async () => {
     if (!isHost || !roomCode) return;
+    clearTimers();
     await update(ref(db, `rooms/${roomCode}`), {
       phase: "picking",
       score: { host: 0, guest: 0 },
@@ -346,9 +367,10 @@ export default function ReactionGame() {
       gameWinner: null,
       confirmed: null,
       confirmDeadline: null,
+      scoreConfirmed: null,
     });
     setTeamSearch("");
-  }, [isHost, roomCode]);
+  }, [isHost, roomCode, clearTimers]);
 
   // ── Leave room ────────────────────────────────────────────────
   const leaveRoom = useCallback(async () => {
@@ -486,12 +508,22 @@ export default function ReactionGame() {
     <div className="h-screen w-screen flex flex-col items-center justify-center p-4 gap-3 select-none overflow-hidden">
       {/* Top bar */}
       <div className="flex items-center justify-between w-full max-w-4xl shrink-0">
-        <button
-          onClick={leaveRoom}
-          className="text-gray-500 hover:text-white text-sm transition-colors"
-        >
-          Leave
-        </button>
+        <div className="flex gap-3 items-center">
+          <button
+            onClick={leaveRoom}
+            className="text-gray-500 hover:text-white text-sm transition-colors"
+          >
+            Leave
+          </button>
+          {isHost && !waitingForOpponent && (
+            <button
+              onClick={startNewGame}
+              className="text-yellow-600 hover:text-yellow-400 text-sm transition-colors"
+            >
+              Reset
+            </button>
+          )}
+        </div>
         <button
           onClick={copyCode}
           className="flex items-center gap-2 bg-gray-800 px-3 py-1 rounded-lg text-sm hover:bg-gray-700 transition-colors"
@@ -723,6 +755,46 @@ export default function ReactionGame() {
                         )}
                       </>
                     )}
+
+                    {/* Host confirm/deny point */}
+                    {room?.scoreConfirmed === "pending" && (
+                      <div className="mt-4">
+                        {isHost ? (
+                          <div className="flex flex-col items-center gap-2">
+                            <div className="text-sm text-gray-400">Confirm point for {room.winner === "host" ? hostName : guestName}?</div>
+                            <div className="flex gap-3">
+                              <button
+                                onClick={confirmPoint}
+                                className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-lg font-bold rounded-xl transition-all active:scale-95"
+                              >
+                                Confirm
+                              </button>
+                              <button
+                                onClick={denyPoint}
+                                className="px-6 py-3 bg-red-600 hover:bg-red-500 text-white text-lg font-bold rounded-xl transition-all active:scale-95"
+                              >
+                                Deny
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="text-sm text-gray-500">
+                            Waiting for {hostName} to confirm point...
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {room?.scoreConfirmed === "confirmed" && (
+                      <div className="mt-3 text-sm text-emerald-400 font-semibold">
+                        Point confirmed!
+                      </div>
+                    )}
+                    {room?.scoreConfirmed === "denied" && (
+                      <div className="mt-3 text-sm text-red-400 font-semibold">
+                        Point denied!
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -741,8 +813,8 @@ export default function ReactionGame() {
                 </button>
               </div>
 
-              {/* Next round (only if no one reached 3 yet) */}
-              {phase === "result" && (room?.score.host || 0) < ROUNDS_TO_WIN && (room?.score.guest || 0) < ROUNDS_TO_WIN && (
+              {/* Next round (only after host confirmed/denied, and no one reached 3 yet) */}
+              {phase === "result" && (room?.scoreConfirmed === "confirmed" || room?.scoreConfirmed === "denied") && (room?.score.host || 0) < ROUNDS_TO_WIN && (room?.score.guest || 0) < ROUNDS_TO_WIN && (
                 <>
                   {isHost ? (
                     <button
